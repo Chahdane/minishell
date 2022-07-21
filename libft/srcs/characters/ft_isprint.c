@@ -1,25 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handlers.c                                   :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 20:19:58 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/21 14:33:24 by owahdani         ###   ########.fr       */
+/*   Created: 2021/11/11 23:37:01 by owahdani          #+#    #+#             */
+/*   Updated: 2021/11/11 23:41:24 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
-
-int	ft_perror(char *name, char *error)
+int	ft_isprint(int c)
 {
-	printf("%s: ", name);
-	if (!error)
-	{
-		perror(NULL);
-		return (-1);
-	}
-	printf("%s\n", error);
-	return (-1);
+	return (c >= ' ' && c <= '~');
 }

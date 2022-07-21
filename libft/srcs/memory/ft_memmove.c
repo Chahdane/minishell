@@ -1,25 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handlers.c                                   :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 20:19:58 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/21 14:33:24 by owahdani         ###   ########.fr       */
+/*   Created: 2021/11/15 00:19:41 by owahdani          #+#    #+#             */
+/*   Updated: 2021/11/15 00:57:57 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <stddef.h>
 
-int	ft_perror(char *name, char *error)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	printf("%s: ", name);
-	if (!error)
+	size_t	i;
+	char	*dst_ptr;
+	char	*src_ptr;
+
+	if (!len || dst == src)
+		return (dst);
+	i = 0;
+	dst_ptr = (char *) dst;
+	src_ptr = (char *) src;
+	if (dst_ptr < src_ptr)
 	{
-		perror(NULL);
-		return (-1);
+		while (i < len)
+		{
+			dst_ptr[i] = src_ptr[i];
+			i++;
+		}
 	}
-	printf("%s\n", error);
-	return (-1);
+	else
+	{
+		while (len--)
+			dst_ptr[len] = src_ptr[len];
+	}
+	return (dst);
 }

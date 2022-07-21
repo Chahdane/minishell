@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handlers.c                                   :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 20:19:58 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/21 14:33:24 by owahdani         ###   ########.fr       */
+/*   Created: 2021/11/16 20:55:59 by owahdani          #+#    #+#             */
+/*   Updated: 2021/11/16 21:38:14 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <stddef.h>
 
-int	ft_perror(char *name, char *error)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	printf("%s: ", name);
-	if (!error)
-	{
-		perror(NULL);
-		return (-1);
-	}
-	printf("%s\n", error);
-	return (-1);
+	unsigned char	*str1;
+	unsigned char	*str2;
+	size_t			i;
+
+	if (!n)
+		return (0);
+	i = 0;
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	while (i < n - 1 && str1[i] == str2[i])
+		i++;
+	return (str1[i] - str2[i]);
 }

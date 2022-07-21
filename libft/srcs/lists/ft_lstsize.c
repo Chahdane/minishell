@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handlers.c                                   :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 20:19:58 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/21 14:33:24 by owahdani         ###   ########.fr       */
+/*   Created: 2021/11/21 15:40:40 by owahdani          #+#    #+#             */
+/*   Updated: 2021/11/22 23:18:58 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <libft.h>
 
-int	ft_perror(char *name, char *error)
+int	ft_lstsize(t_list *lst)
 {
-	printf("%s: ", name);
-	if (!error)
+	int	size;
+
+	size = 0;
+	while (lst)
 	{
-		perror(NULL);
-		return (-1);
+		lst = lst->next;
+		size++;
 	}
-	printf("%s\n", error);
-	return (-1);
+	return (size);
 }

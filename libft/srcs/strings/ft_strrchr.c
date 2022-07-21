@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handlers.c                                   :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 20:19:58 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/21 14:33:24 by owahdani         ###   ########.fr       */
+/*   Created: 2021/11/16 11:08:59 by owahdani          #+#    #+#             */
+/*   Updated: 2021/11/16 11:46:51 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <stddef.h>
 
-int	ft_perror(char *name, char *error)
+char	*ft_strrchr(const char *s, int c)
 {
-	printf("%s: ", name);
-	if (!error)
-	{
-		perror(NULL);
-		return (-1);
-	}
-	printf("%s\n", error);
-	return (-1);
+	char	tar;
+	char	*str;
+
+	tar = (char) c;
+	str = (char *) s;
+	while (*str)
+		str++;
+	while (str > s && *str != tar)
+		str--;
+	if (*str == tar)
+		return (str);
+	return (NULL);
 }

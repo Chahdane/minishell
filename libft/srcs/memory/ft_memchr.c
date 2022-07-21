@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handlers.c                                   :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 20:19:58 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/21 14:33:24 by owahdani         ###   ########.fr       */
+/*   Created: 2021/11/16 17:36:44 by owahdani          #+#    #+#             */
+/*   Updated: 2021/11/16 19:20:02 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <stddef.h>
 
-int	ft_perror(char *name, char *error)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	printf("%s: ", name);
-	if (!error)
-	{
-		perror(NULL);
-		return (-1);
-	}
-	printf("%s\n", error);
-	return (-1);
+	size_t			i;
+	unsigned char	chr;
+	unsigned char	*str;
+
+	if (!n)
+		return (NULL);
+	i = 0;
+	str = (unsigned char *)s;
+	chr = (unsigned char)c;
+	while (i < n - 1 && str[i] != chr)
+		i++;
+	if (str[i] == chr)
+		return (str + i);
+	return (NULL);
 }

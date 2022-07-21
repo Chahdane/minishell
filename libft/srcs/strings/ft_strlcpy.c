@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handlers.c                                   :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 20:19:58 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/21 14:33:24 by owahdani         ###   ########.fr       */
+/*   Created: 2021/11/15 01:29:12 by owahdani          #+#    #+#             */
+/*   Updated: 2021/11/15 03:28:27 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <stddef.h>
 
-int	ft_perror(char *name, char *error)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	printf("%s: ", name);
-	if (!error)
+	size_t	i;
+
+	i = 0;
+	while (dstsize && i < dstsize - 1 && src[i])
 	{
-		perror(NULL);
-		return (-1);
+		dst[i] = src[i];
+		i++;
 	}
-	printf("%s\n", error);
-	return (-1);
+	if (dstsize)
+		dst[i] = 0;
+	while (src[i])
+		i++;
+	return (i);
 }

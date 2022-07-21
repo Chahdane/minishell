@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handlers.c                                   :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 20:19:58 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/21 14:33:24 by owahdani         ###   ########.fr       */
+/*   Created: 2021/11/20 16:08:32 by owahdani          #+#    #+#             */
+/*   Updated: 2021/11/20 16:14:57 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
-
-int	ft_perror(char *name, char *error)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	printf("%s: ", name);
-	if (!error)
+	unsigned int	i;
+
+	if (!s || !f)
+		return ;
+	i = 0;
+	while (s[i])
 	{
-		perror(NULL);
-		return (-1);
+		(*f)(i, s + i);
+		i++;
 	}
-	printf("%s\n", error);
-	return (-1);
 }

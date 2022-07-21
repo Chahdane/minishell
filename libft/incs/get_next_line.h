@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handlers.c                                   :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 20:19:58 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/21 14:33:24 by owahdani         ###   ########.fr       */
+/*   Created: 2022/01/06 12:05:28 by owahdani          #+#    #+#             */
+/*   Updated: 2022/01/13 13:32:32 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-int	ft_perror(char *name, char *error)
+# include <stdlib.h>
+# include <unistd.h>
+
+# define BUFFER_SIZE 1024
+
+typedef struct s_file
 {
-	printf("%s: ", name);
-	if (!error)
-	{
-		perror(NULL);
-		return (-1);
-	}
-	printf("%s\n", error);
-	return (-1);
-}
+	int				fd;
+	char			*buff;
+	struct s_file	*next;
+}		t_file;
+
+int		read_line(char **buff, int fd, char **line);
+char	*get_next_line(int fd);
+
+#endif

@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handlers.c                                   :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 20:19:58 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/21 14:33:24 by owahdani         ###   ########.fr       */
+/*   Created: 2021/11/20 22:15:30 by owahdani          #+#    #+#             */
+/*   Updated: 2021/11/22 23:19:41 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "libft.h"
 
-int	ft_perror(char *name, char *error)
+void	ft_putnbr_fd(int n, int fd)
 {
-	printf("%s: ", name);
-	if (!error)
+	unsigned int	nb;
+
+	if (fd < 0)
+		return ;
+	nb = n;
+	if (n < 0)
 	{
-		perror(NULL);
-		return (-1);
+		nb = -n;
+		ft_putchar_fd('-', fd);
 	}
-	printf("%s\n", error);
-	return (-1);
+	if (nb > 9)
+		ft_putnbr_fd(nb / 10, fd);
+	ft_putchar_fd('0' + nb % 10, fd);
 }

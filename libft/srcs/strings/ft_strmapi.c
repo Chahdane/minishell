@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handlers.c                                   :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 20:19:58 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/21 14:33:24 by owahdani         ###   ########.fr       */
+/*   Created: 2021/11/20 15:33:03 by owahdani          #+#    #+#             */
+/*   Updated: 2021/11/22 23:21:59 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <stdlib.h>
+#include <libft.h>
 
-int	ft_perror(char *name, char *error)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	printf("%s: ", name);
-	if (!error)
+	char	*new;
+	size_t	i;
+
+	if (!s || !f)
+		return (NULL);
+	new = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!new)
+		return (NULL);
+	i = 0;
+	while (s[i])
 	{
-		perror(NULL);
-		return (-1);
+		new[i] = (*f)(i, s[i]);
+		i++;
 	}
-	printf("%s\n", error);
-	return (-1);
+	new[i] = 0;
+	return (new);
 }

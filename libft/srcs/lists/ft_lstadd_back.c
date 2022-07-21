@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handlers.c                                   :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 20:19:58 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/21 14:33:24 by owahdani         ###   ########.fr       */
+/*   Created: 2021/11/21 17:43:48 by owahdani          #+#    #+#             */
+/*   Updated: 2021/11/22 23:16:54 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <libft.h>
 
-int	ft_perror(char *name, char *error)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	printf("%s: ", name);
-	if (!error)
+	t_list	*ptr;
+
+	if (!lst || !new)
+		return ;
+	if (!*lst)
 	{
-		perror(NULL);
-		return (-1);
+		*lst = new;
+		return ;
 	}
-	printf("%s\n", error);
-	return (-1);
+	ptr = *lst;
+	while (ptr->next)
+		ptr = ptr->next;
+	ptr->next = new;
 }
