@@ -6,7 +6,7 @@
 #    By: owahdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/19 20:16:21 by owahdani          #+#    #+#              #
-#    Updated: 2022/07/21 15:37:32 by owahdani         ###   ########.fr        #
+#    Updated: 2022/07/21 16:24:47 by owahdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC_DIR = srcs/
 
 SRC = error_handlers.c \
-	  minishell.c
+	  minishell.c \
+	  helpers.c \
+	  syntax_checkers.c
 
 SRC := $(addprefix $(SRC_DIR),$(SRC))
 OBJ = $(patsubst $(SRC_DIR)%.c,%.o,$(SRC))
