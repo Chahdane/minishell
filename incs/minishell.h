@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/22 18:48:42 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/22 21:44:09 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ typedef struct s_data
 
 typedef struct s_token
 {
-	char		*value;
-	enum e_type	type;
+	char			*value;
+	enum e_type		type;
+	struct s_token	*next;
 }				t_token;
 
 typedef struct s_name
@@ -54,9 +55,9 @@ typedef struct s_cmd
 	t_name			*infiles;
 	t_name			*outfiles;
 	int				output_mode;
+	t_name			*heredoc;
 	int				input;
-	char			*heredoc;
-	t_name			args_lst;
+	t_name			*args_lst;
 	char			**args;
 	struct s_cmd	*next;
 }				t_cmd;
