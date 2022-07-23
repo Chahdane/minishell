@@ -6,7 +6,7 @@
 #    By: owahdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/19 20:16:21 by owahdani          #+#    #+#              #
-#    Updated: 2022/07/22 21:35:43 by owahdani         ###   ########.fr        #
+#    Updated: 2022/07/23 21:08:00 by owahdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRC_DIR = srcs/
 SRC = error_handlers.c \
 	  minishell.c \
 	  helpers.c \
-	  syntax_checkers.c \
+	  syntax.c \
 	  parsers.c
 
 SRC := $(addprefix $(SRC_DIR),$(SRC))

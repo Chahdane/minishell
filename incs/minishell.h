@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/22 21:44:09 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/24 00:01:04 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,11 @@ t_data	g_data;
 // prototypes
 int		ft_perror(char *name, char *error);
 int		check_quotes(char *line);
+t_token	*get_pipe(char **line, t_token *token);
+char	*ft_strndup(const char *s1, size_t size);
 
 // errors
 # define QUOTES "syntax error: unclosed quotes"
+# define UNXPCT "syntax error near unexpected token "
 
 #endif
