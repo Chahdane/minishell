@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 16:23:19 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/24 17:14:12 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/24 17:52:42 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,14 @@ char	*ft_strndup(const char *s1, size_t size)
 	return (str);
 }
 
-void	*check_malloc()
+int	check_malloc(void *to_be_checked, void *to_be_freed)
 {
+	if (to_be_checked)
+		return (0);
+	free(to_be_freed);
+	ft_perror("minishell", NULL, 0);
+	g_data.exit_code = 1;
+	return (-1);
 }
 
 void	mv_2_nxt_quote(char *line, int *i)

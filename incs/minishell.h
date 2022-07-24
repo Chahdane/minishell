@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/24 00:13:08 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/24 18:57:14 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,18 @@ typedef struct s_cmd
 //global variable
 t_data	g_data;
 
+//miscellaneous defines
+# define PROMPT  "\x1b[32m" "minishell$" "\x1b[0m"
+
 // prototypes
-int		ft_perror(char *name, char *error);
+int		ft_perror(char *name, char *error, int free);
 int		check_quotes(char *line);
 t_token	*get_pipe(char **line, t_token *token);
 char	*ft_strndup(const char *s1, size_t size);
+void	mv_2_nxt_quote(char *line, int *i);
 
 // errors
 # define QUOTES "syntax error: unclosed quotes"
-# define UNXPCT "syntax error near unexpected token "
+# define UNXPCT "syntax error near unexpected token \'"
 
 #endif

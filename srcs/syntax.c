@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 14:31:20 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/24 17:03:26 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/24 17:54:32 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,8 @@ t_token	*get_name(char **line, t_token *token)
 			if (**line == *(*line + 1))
 				i++;
 		token->value = ft_strndup(*line, i);
-		if (!token->value)
-		{
-			free(token);
+		if (check_malloc(token->value, token))
 			return (NULL);
-		}
 		(*line) += i;
 		return (token);
 	}
@@ -44,11 +41,8 @@ t_token	*get_name(char **line, t_token *token)
 			i++;
 	}
 	token->value = ft_strndup(*line, i);
-	if (!token->value)
-	{
-		free(token);
+	if (check_malloc(token->value, token))
 		return (NULL);
-	}
 	(*line) += i;
 	return (token);
 }
@@ -63,7 +57,9 @@ t_token	*get_other(char **line, t_token *token)
 t_token	*get_pipe(char **line, t_token *token)
 {
 	(*line)++;
-	token->value = NULL;
+	token->value = ft_strdup("|");
+	if (check_malloc(token->value, token))
+		return (NULL);
 	token->type = PIPE;
 	token->next = NULL;
 	return (token);
@@ -117,7 +113,7 @@ int	check_quotes(char *line)
 		if (!line[i])
 		{
 			g_data.exit_code = 258;
-			return (ft_perror("minishell", QUOTES));
+			return (ft_perror("minishell", QUOTES, 0));
 		}
 		i++;
 	}
