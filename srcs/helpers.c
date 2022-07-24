@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 16:23:19 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/24 00:00:49 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/24 17:14:12 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,26 @@ char	*ft_strndup(const char *s1, size_t size)
 	}
 	str[i] = 0;
 	return (str);
+}
+
+void	*check_malloc()
+{
+}
+
+void	mv_2_nxt_quote(char *line, int *i)
+{
+	if (line[*i] == '\'')
+	{
+		(*i)++;
+		while (line[*i] && line[*i] != '\'')
+			(*i)++;
+		(*i)++;
+	}
+	else
+	{
+		(*i)++;
+		while (line[*i] && line[*i] != '\"')
+			(*i)++;
+		(*i)++;
+	}
 }
