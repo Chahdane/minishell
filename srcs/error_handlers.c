@@ -6,13 +6,13 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:19:58 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/24 19:04:25 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/25 17:48:08 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	ft_perror(char *name, char *error, int free)
+int	ft_perror(char *name, char *error, int freeable)
 {
 	printf("%s: ", name);
 	if (!error)
@@ -21,7 +21,7 @@ int	ft_perror(char *name, char *error, int free)
 		return (-1);
 	}
 	printf("%s\n", error);
-	if (free)
+	if (freeable)
 		free(error);
 	return (-1);
 }
@@ -32,7 +32,7 @@ void join_error_str(char *error1, char *token)
 	char	*ptr;
 
 	ptr = ft_strjoin(error1, token);
-	if (check_malloc(str, NULL))
+	if (check_malloc(ptr, NULL))
 		return ;
 	str = ft_strjoin(ptr, "\'");
 	if (check_malloc(str, NULL))
@@ -40,4 +40,14 @@ void join_error_str(char *error1, char *token)
 	free(ptr);
 	g_data.exit_code = 258;
 	ft_perror("minishell", str, 1);
+}
+
+int	check_malloc(void *to_be_checked, void *to_be_freed)
+{
+	if (to_be_checked)
+		return (0);
+	free(to_be_freed);
+	ft_perror("minishell", NULL, 0);
+	g_data.exit_code = 1;
+	return (-1);
 }

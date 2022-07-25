@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   syntax.c                                  :+:      :+:    :+:   */
+/*   tokenizers_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 14:31:20 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/24 17:54:32 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/25 18:43:11 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ t_token	*get_name(char **line, t_token *token)
 		return (token);
 	}
 	i = 0;
-	while (*line[i])
+	while ((*line)[i])
 	{
-		if (*line[i] == ' ' || *line[i] == '<' || *line[i] == '>' || *line[i] == '|')
+		if ((*line)[i] == ' ' || (*line)[i] == '<' || (*line)[i] == '>' || (*line)[i] == '|')
 			break ;
-		else if (*line[i] == '\'' || *line[i] == '\"') 
+		else if ((*line)[i] == '\'' || (*line)[i] == '\"') 
 			mv_2_nxt_quote(*line, &i);
 		else
 			i++;
@@ -57,9 +57,13 @@ t_token	*get_other(char **line, t_token *token)
 t_token	*get_pipe(char **line, t_token *token)
 {
 	(*line)++;
-	token->value = ft_strdup("|");
+	/*token->value = ft_strdup("|");
+	if (check_malloc(token->value, token))
+		return (NULL);*/
+	token->value = ft_strdup("?");
 	if (check_malloc(token->value, token))
 		return (NULL);
+	token->value = NULL;
 	token->type = PIPE;
 	token->next = NULL;
 	return (token);
@@ -89,33 +93,4 @@ t_token	*get_input(char **line, t_token *token)
 	}
 	token->next = NULL;
 	return (get_name(line, token));
-}
-
-int	check_quotes(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '\"')
-		{
-			while (line[++i])
-				if (line[i] == '\"')
-					break ;
-		}
-		else if (line[i] == '\'')
-		{
-			while (line[++i])
-				if (line[i] == '\'')
-					break ;
-		}
-		if (!line[i])
-		{
-			g_data.exit_code = 258;
-			return (ft_perror("minishell", QUOTES, 0));
-		}
-		i++;
-	}
-	return (0);
 }

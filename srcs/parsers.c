@@ -6,83 +6,40 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:46:34 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/24 19:07:07 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/25 17:32:17 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_token	*last_token(t_token *tokens)
+void	print_tokens(t_token *tokens)
 {
-	while (tokens && tokens->next)
-		tokens = tokens->next;
-	return (tokens);
-}
+	char	*str;
+	char	*pipe;
+	char	*type;
 
-int	add_token(t_token **tokens, t_token *new)
-{
-	if (new->type == PIPE)
-	return (0);
-}
-
-t_token	*make_token_lst(char *line)
-{
-	t_token	*tokens;
-	t_token	*tmp;
-
-	tokens = NULL;
-	tmp = get_token(&line);
-	while (tmp)
+	pipe = "|";
+	while (tokens)
 	{
-		if (tmp->type == OTHER && tmp->value == NULL)
-		{
-			free(tmp);
-			if (!tokens)
-				return (NULL);
-			tmp = last_token(tokens);
-			if (tmp->type == OTHER)
-				break ;
-			else if (tmp->type == PIPE)
-				join_error_str(UNXPCT, tmp->value);
-			else
-				join_error_str(UNXPCT, "newline");
-			free(tmp);
-			return (clear_token_lst(tokens));
-		}
-		if (add_token(&tokens, tmp))
-		{
-			free(tmp);
-			return (clear_token_lst(tokens));
-		}
-		free(tmp);
-		tmp = get_token(&line);
-	}
-	return (tokens);
-}
-
-t_token	*get_token(char **line)
-{
-	t_token	*token;
-
-	token = malloc(sizeof(t_token));
-	if (check_malloc(token, NULL))
-		return (NULL);
-	while (**line)
-	{
-		if (**line == ' ')
-			(*line)++;
-		else if (**line == '|')
-			return (get_pipe(line, token));
-		else if (**line == '>')
-			return (get_outfile(line, token));
-		else if (**line == '<')
-			return (get_input(line, token));
+		if (tokens->type == PIPE)
+			str = pipe;
 		else
-			return (get_other(line, token));
+			str = tokens->value;
+		if (tokens->type == PIPE)
+			type = "pipe";
+		if (tokens->type == INF)
+			type = "infile";
+		if (tokens->type == OUTF)
+			type = "outfile";
+		if (tokens->type == APPF)
+			type = "appendfile";
+		if (tokens->type == HRDOC)
+			type = "heredoc";
+		if (tokens->type == OTHER)
+			type = "other";
+		printf("TOK=\"%s\", TYPE=%s\n", str, type);
+		tokens = tokens->next;
 	}
-	token->value = NULL;
-	token->type = OTHER;
-	return (token);
 }
 
 int	parse_line(char *line)
@@ -92,5 +49,7 @@ int	parse_line(char *line)
 	tokens = make_token_lst(line);
 	if (!tokens)
 		return (-1);
+	print_tokens(tokens);
+	clear_token_lst(tokens);
 	return (0);
 }
