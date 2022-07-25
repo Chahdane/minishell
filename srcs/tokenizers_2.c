@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 14:31:20 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/25 18:43:11 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/25 23:39:16 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,9 @@ t_token	*get_other(char **line, t_token *token)
 t_token	*get_pipe(char **line, t_token *token)
 {
 	(*line)++;
-	/*token->value = ft_strdup("|");
-	if (check_malloc(token->value, token))
-		return (NULL);*/
 	token->value = ft_strdup("?");
 	if (check_malloc(token->value, token))
 		return (NULL);
-	token->value = NULL;
 	token->type = PIPE;
 	token->next = NULL;
 	return (token);

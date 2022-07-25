@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 20:24:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/25 18:39:46 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/26 00:24:38 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ int	add_token(t_token **tokens, t_token *new, t_token *last)
 {
 	char	c;
 
+	if (!*tokens)
+		*tokens = new;
+	else
+		last->next = new;
 	c = *(new->value);
 	if (!c || c == '<' || c == '>' || c == '|')
 	{
@@ -33,16 +37,12 @@ int	add_token(t_token **tokens, t_token *new, t_token *last)
 		return (-1);
 		free(new);
 	}
-	if (new->type == PIPE && (!*tokens || last->type == PIPE))
+	if (new->type == PIPE && (!*tokens || (last && last->type == PIPE)))
 	{
 		join_error_str(UNXPCT, "|");
 		return (-1);
 		free(new);
 	}
-	if (!*tokens)
-		*tokens = new;
-	else
-		last->next = new;
 	return (0);
 }
 
@@ -54,6 +54,7 @@ t_token	*clear_token_lst(t_token *tokens)
 	{
 		tmp = tokens;
 		tokens = tokens->next;
+		free(tmp->value);
 		free(tmp);
 	}
 	return (NULL);
@@ -99,14 +100,11 @@ t_token	*make_token_lst(char *line)
 			new = last_token(tokens);
 			if (!tokens || new->type != PIPE)
 				break ;
-			/*else if (new->type == PIPE)
-				join_error_str(UNXPCT, new->value);*/
-			join_error_str(UNXPCT, "newline");
+			join_error_str(UNXPCT, "|");
 			return (clear_token_lst(tokens));
 		}
 		if (add_token(&tokens, new, last_token(tokens)))
 			return (clear_token_lst(tokens));
-		free(new);
 		new = get_token(&line);
 	}
 	return (tokens);
