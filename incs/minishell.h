@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/25 18:27:16 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/26 16:55:42 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
+	char	**env;
 	t_cmd	*cmds;
 	int		exit_code;
 	char	*prompt;
