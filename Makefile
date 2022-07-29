@@ -6,11 +6,11 @@
 #    By: owahdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/19 20:16:21 by owahdani          #+#    #+#              #
-#    Updated: 2022/07/25 18:31:28 by owahdani         ###   ########.fr        #
+#    Updated: 2022/07/27 21:27:04 by owahdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-DFLAGS = -g -fsanitize=address
+DFLAGS = #-g -fsanitize=address
 CFLAGS = -c -Wall -Wextra -Werror $(IFLAGS) $(DFLAGS)
 
 IFLAGS = -Iincs/ -Ilibft/incs/ -I/Users/owahdani/homebrew/Cellar/readline/8.1.2/include/readline

@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 20:24:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/26 00:24:38 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/27 21:02:02 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int	add_token(t_token **tokens, t_token *new, t_token *last)
 {
 	char	c;
 
+	c = *(new->value);
 	if (!*tokens)
 		*tokens = new;
 	else
 		last->next = new;
-	c = *(new->value);
 	if (!c || c == '<' || c == '>' || c == '|')
 	{
 		if (c)
@@ -35,13 +35,11 @@ int	add_token(t_token **tokens, t_token *new, t_token *last)
 		else
 			join_error_str(UNXPCT, "newline");
 		return (-1);
-		free(new);
 	}
-	if (new->type == PIPE && (!*tokens || (last && last->type == PIPE)))
+	if (new->type == PIPE && (!(*tokens)->next || (last && last->type == PIPE)))
 	{
 		join_error_str(UNXPCT, "|");
 		return (-1);
-		free(new);
 	}
 	return (0);
 }
