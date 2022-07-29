@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 14:31:20 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/25 23:39:16 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/29 22:16:23 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,18 @@ t_token	*get_name(char **line, t_token *token)
 
 	while (**line == ' ')
 		(*line)++;
-	if (!**line || **line == '<' || **line == '>' || **line == '|')
-	{
-		i = 1;
-		if (**line == '>' || **line == '<')
-			if (**line == *(*line + 1))
-				i++;
-		token->value = ft_strndup(*line, i);
-		if (check_malloc(token->value, token))
-			return (NULL);
-		(*line) += i;
+	i = check_name(line, token);
+	if (i == -1)
 		return (token);
-	}
+	else if (i == -2)
+		return (NULL);
 	i = 0;
 	while ((*line)[i])
 	{
-		if ((*line)[i] == ' ' || (*line)[i] == '<' || (*line)[i] == '>' || (*line)[i] == '|')
+		if ((*line)[i] == ' ' || (*line)[i] == '<' ||
+				(*line)[i] == '>' || (*line)[i] == '|')
 			break ;
-		else if ((*line)[i] == '\'' || (*line)[i] == '\"') 
+		else if ((*line)[i] == '\'' || (*line)[i] == '\"')
 			mv_2_nxt_quote(*line, &i);
 		else
 			i++;

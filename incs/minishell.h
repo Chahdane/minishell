@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/26 16:55:42 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/29 22:10:32 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,17 @@ char	*ft_strndup(const char *s1, size_t size);
 t_token	*make_token_lst(char *line);
 t_token	*clear_token_lst(t_token *tokens);
 int		check_malloc(void *to_be_checked, void *to_be_freed);
-void 	join_error_str(char *error1, char *token);
+void	join_error_str(char *error1, char *token);
 t_token	*get_other(char **line, t_token *token);
 t_token	*get_pipe(char **line, t_token *token);
 t_token	*get_outfile(char **line, t_token *token);
 t_token	*get_input(char **line, t_token *token);
 void	mv_2_nxt_quote(char *line, int *i);
 int		parse_line(char *line);
+int		check_name(char **line, t_token *token);
 
 //miscellaneous defines
-# define PROMPT  "\x1b[32m" "minishell$ " "\x1b[0m"
+# define PROMPT  "\x1b[32mminishell$ \x1b[0m"
 
 // errors
 # define QUOTES "syntax error: unclosed quotes"

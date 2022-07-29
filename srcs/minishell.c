@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/25 18:26:27 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/29 22:09:34 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 int	main(int ac, char **av, char **envp)
 {
 	char	*line;
-	(void) ac, (void) av, (void) envp;
 
+	(void) ac;
+	(void) av;
+	(void) envp;
 	g_data.prompt = PROMPT;
 	line = readline(g_data.prompt);
 	while (line)

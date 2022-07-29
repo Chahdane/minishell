@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:19:58 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/25 17:48:08 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/29 20:07:07 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_perror(char *name, char *error, int freeable)
 	return (-1);
 }
 
-void join_error_str(char *error1, char *token)
+void	join_error_str(char *error1, char *token)
 {
 	char	*str;
 	char	*ptr;

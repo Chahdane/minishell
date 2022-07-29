@@ -6,11 +6,30 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 16:23:19 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/25 17:45:50 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/07/29 22:11:02 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+int	check_name(char **line, t_token *token)
+{
+	int	i;
+
+	if (!**line || **line == '<' || **line == '>' || **line == '|')
+	{
+		i = 1;
+		if (**line == '>' || **line == '<')
+			if (**line == *(*line + 1))
+				i++;
+		token->value = ft_strndup(*line, i);
+		if (check_malloc(token->value, token))
+			return (-2);
+		(*line) += i;
+		return (-1);
+	}
+	return (0);
+}
 
 char	*ft_strndup(const char *s1, size_t size)
 {
