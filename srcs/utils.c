@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 20:18:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/02 16:07:19 by owahdani         ###   ########.fr       */
+/*   Created: 2022/08/02 22:31:10 by owahdani          #+#    #+#             */
+/*   Updated: 2022/08/02 22:36:42 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	main(int ac, char **av, char **envp)
+int	ft_strcmp(char *s1, char *s2)
 {
-	char	*line;
-
-	(void) ac;
-	(void) av;
-	init_env_lst(envp);
-	g_data.prompt = PROMPT;
-	line = readline(g_data.prompt);
-	while (line)
+	while (*s1 && *s2 && *s1 == *s2)
 	{
-		parse_line(line);
-		free(line);
-		line = readline(g_data.prompt);
+		s1++;
+		s2++;
 	}
-	return (0);
+	return (*s1 - *s2);
 }

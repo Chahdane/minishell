@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 20:24:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/27 21:02:02 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/01 22:55:34 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_token	*get_token(char **line)
 	t_token	*token;
 
 	token = malloc(sizeof(t_token));
-	if (check_malloc(token, NULL))
+	if (check_malloc(token, NULL, 0))
 		return (NULL);
 	while (**line)
 	{

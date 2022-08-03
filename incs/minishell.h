@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/29 22:10:32 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/02 22:38:45 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,12 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }				t_cmd;
 
-typedef struct s_data
+typedef struct s_env
 {
-	char	**env;
-	t_cmd	*cmds;
-	int		exit_code;
-	char	*prompt;
-}				t_data;
+	char			*var;
+	char			*value;
+	struct s_env	*next;
+}				t_env;
 
 typedef struct s_token
 {
@@ -64,6 +63,15 @@ typedef struct s_token
 	enum e_type		type;
 	struct s_token	*next;
 }				t_token;
+
+typedef struct s_data
+{
+	char	**env;
+	t_env	*env_lst;
+	t_cmd	*cmds;
+	int		exit_code;
+	char	*prompt;
+}				t_data;
 
 //global variable
 t_data	g_data;
@@ -75,7 +83,7 @@ t_token	*get_pipe(char **line, t_token *token);
 char	*ft_strndup(const char *s1, size_t size);
 t_token	*make_token_lst(char *line);
 t_token	*clear_token_lst(t_token *tokens);
-int		check_malloc(void *to_be_checked, void *to_be_freed);
+int		check_malloc(void *to_be_checked, void *to_be_freed, int is_exit);
 void	join_error_str(char *error1, char *token);
 t_token	*get_other(char **line, t_token *token);
 t_token	*get_pipe(char **line, t_token *token);
@@ -84,6 +92,8 @@ t_token	*get_input(char **line, t_token *token);
 void	mv_2_nxt_quote(char *line, int *i);
 int		parse_line(char *line);
 int		check_name(char **line, t_token *token);
+void	init_env_lst(char **env);
+void	*ft_malloc(size_t count, size_t size, int is_exit);
 
 //miscellaneous defines
 # define PROMPT  "\x1b[32mminishell$ \x1b[0m"

@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:19:58 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/29 20:07:07 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/01 22:56:36 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,24 @@ void	join_error_str(char *error1, char *token)
 	char	*ptr;
 
 	ptr = ft_strjoin(error1, token);
-	if (check_malloc(ptr, NULL))
+	if (check_malloc(ptr, NULL, 0))
 		return ;
 	str = ft_strjoin(ptr, "\'");
-	if (check_malloc(str, NULL))
+	if (check_malloc(str, NULL, 0))
 		return ;
 	free(ptr);
 	g_data.exit_code = 258;
 	ft_perror("minishell", str, 1);
 }
 
-int	check_malloc(void *to_be_checked, void *to_be_freed)
+int	check_malloc(void *to_be_checked, void *to_be_freed, int is_exit)
 {
 	if (to_be_checked)
 		return (0);
 	free(to_be_freed);
 	ft_perror("minishell", NULL, 0);
 	g_data.exit_code = 1;
+	if (is_exit)
+		exit (1);
 	return (-1);
 }

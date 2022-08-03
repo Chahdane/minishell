@@ -6,11 +6,20 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 16:23:19 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/29 22:11:02 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/02 16:33:42 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	*ft_malloc(size_t count, size_t size, int is_exit)
+{
+	void	*tmp;
+
+	tmp = malloc(count * size);
+	check_malloc(tmp, NULL, is_exit);
+	return (tmp);
+}
 
 int	check_name(char **line, t_token *token)
 {
@@ -23,7 +32,7 @@ int	check_name(char **line, t_token *token)
 			if (**line == *(*line + 1))
 				i++;
 		token->value = ft_strndup(*line, i);
-		if (check_malloc(token->value, token))
+		if (check_malloc(token->value, token, 0))
 			return (-2);
 		(*line) += i;
 		return (-1);

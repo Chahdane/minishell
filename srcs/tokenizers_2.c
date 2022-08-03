@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 14:31:20 by owahdani          #+#    #+#             */
-/*   Updated: 2022/07/29 22:16:23 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/01 22:54:59 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_token	*get_name(char **line, t_token *token)
 			i++;
 	}
 	token->value = ft_strndup(*line, i);
-	if (check_malloc(token->value, token))
+	if (check_malloc(token->value, token, 0))
 		return (NULL);
 	(*line) += i;
 	return (token);
@@ -52,7 +52,7 @@ t_token	*get_pipe(char **line, t_token *token)
 {
 	(*line)++;
 	token->value = ft_strdup("?");
-	if (check_malloc(token->value, token))
+	if (check_malloc(token->value, token, 0))
 		return (NULL);
 	token->type = PIPE;
 	token->next = NULL;
