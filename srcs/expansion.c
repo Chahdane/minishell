@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:43:13 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/04 00:01:57 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/04 16:18:48 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,91 +40,62 @@ int	value_len(char *var, int *i)
 	return (j);
 }
 
+int	get_expansion_len(char *var, int *i)
+{
+	int	len;
+
+	len = 0;
+	if (value[*i] == '?')
+	{
+		len++;
+		(*i)++;
+	}
+	else if (is_alpha(value[*i]))
+		len += value_len(value, i);
+	else
+		(*i)++;
+	return (len);
+}
+
 int	len_after_expand(char *value)
 {
-	len = ft_strlen(token->value);
+	int	len;
+	int	i;
+
+	len = ft_strlen(value);
 	i = 0;
-	while (token->value[i])
+	while (value[i])
 	{
-		if (token->value[i] == '\'')
-			mv_2_nxt_quote(token->value, &i)
-		else if (token->value[i] == '\"')
+		if (value[i] == '\'')
+			mv_2_nxt_quote(value, &i)
+		else if (value[i] == '\"')
 		{
 			i++;
-			while (token->value[i] != '\"')
+			while (value[i] != '\"')
 			{
-				if (token->value[i] == '$')
-				{
-					if (token->value[++i] == '?')
-						len++;
-					else if (is_alpha(token->value[i]))
-						len += value_len(token->value, &i);
-					else
-						i++;
-				}
-				else
-					i++;
+				if (value[i++] == '$')
+					len += get_expansion_len(value, &i);
 			}
 		}
-		else if (token->value[i] == '$')
-		{
-			if (token->value[++i] == '?')
-				len++;
-			else if (is_alpha(token->value[i]))
-				len += value_len(token->value, &i);
-			else
-				i++;
-		}
-		else
-			i++;
+		else if (value[i++] == '$')
+			len += get_expansion_len(value, &i);
 	}
+	return (len);
 }
 
 int	ft_expand(t_token *token)
 {
-	int	len;
-	int		i;
+	int		len;
+	char	*tmp;
 
 	while (token)
 	{
 		if (token->type != HRDOC && token->type != PIPE)
 		{
-			len = ft_strlen(token->value);
-			i = 0;
-			while (token->value[i])
-			{
-				if (token->value[i] == '\'')
-					mv_2_nxt_quote(token->value, &i)
-				else if (token->value[i] == '\"')
-				{
-					i++;
-					while (token->value[i] != '\"')
-					{
-						if (token->value[i] == '$')
-						{
-							if (token->value[++i] == '?')
-								len++;
-							else if (is_alpha(token->value[i]))
-								len += value_len(token->value, &i);
-							else
-								i++;
-						}
-						else
-							i++;
-					}
-				}
-				else if (token->value[i] == '$')
-				{
-					if (token->value[++i] == '?')
-						len++;
-					else if (is_alpha(token->value[i]))
-						len += value_len(token->value, &i);
-					else
-						i++;
-				}
-				else
-					i++;
-			}
+			len = len_after_expand(token->value);
+			tmp = ft_malloc(len + 1, 1, 0);
+			if (!tmp)
+				return (-1);
 		}
 		token = token->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 14:03:44 by owahdani          #+#    #+#             */
-/*   Updated: 2021/11/12 23:32:32 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/04 15:51:25 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	len;
 
 	len = 0;
+	if (!s)
+		return (len);
 	while (s[len])
 		len++;
 	return (len);
