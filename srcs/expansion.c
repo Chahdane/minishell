@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:43:13 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/04 16:18:48 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/06 01:30:36 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,22 @@ int	value_len(char *var, int *i)
 	return (j);
 }
 
-int	get_expansion_len(char *var, int *i)
+int	get_expansion_len(char *var, int *i, int *is_expand)
 {
 	int	len;
 
 	len = 0;
-	if (value[*i] == '?')
+	if (var[*i] == '?')
 	{
 		len++;
 		(*i)++;
+		*is_expand = 1;
 	}
-	else if (is_alpha(value[*i]))
-		len += value_len(value, i);
+	else if (ft_isalpha(var[*i]))
+	{
+		len += value_len(var, i);
+		*is_expand = 1;
+	}
 	else
 		(*i)++;
 	return (len);
@@ -61,41 +65,79 @@ int	len_after_expand(char *value)
 {
 	int	len;
 	int	i;
+	int	is_expand;
 
 	len = ft_strlen(value);
 	i = 0;
+	is_expand = 0;
 	while (value[i])
 	{
 		if (value[i] == '\'')
-			mv_2_nxt_quote(value, &i)
+			mv_2_nxt_quote(value, &i);
 		else if (value[i] == '\"')
 		{
 			i++;
 			while (value[i] != '\"')
-			{
 				if (value[i++] == '$')
-					len += get_expansion_len(value, &i);
-			}
+					len += get_expansion_len(value, &i, &is_expand);
 		}
 		else if (value[i++] == '$')
-			len += get_expansion_len(value, &i);
+			len += get_expansion_len(value, &i, &is_expand);
 	}
+	if (!is_expand)
+		return (-1);
 	return (len);
+}
+
+void	get_expanded_val(char *value, char *new)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (value[i])
+	{
+		if (value[i] == '\'')
+		{
+			while (value[++i] != '\'')
+				new[j++] = value[i];
+			i++;
+		}
+		else if (value[i] == '\"')
+		{
+			i++;
+			while (value[i] != '\"')
+				check_n_expand(value, new, &i, &j);
+			i++;
+		}
+		else
+			check_n_expand(value, new, &i, &j);
+	}
+	new[j] = 0;
 }
 
 int	ft_expand(t_token *token)
 {
 	int		len;
-	char	*tmp;
+	char	*new;
 
 	while (token)
 	{
 		if (token->type != HRDOC && token->type != PIPE)
 		{
 			len = len_after_expand(token->value);
-			tmp = ft_malloc(len + 1, 1, 0);
-			if (!tmp)
+			if (len < 0)
+			{
+				token = token->next;
+				continue ;
+			}
+			new = ft_malloc(len + 1, 1, 0);
+			if (!new)
 				return (-1);
+			get_expanded_val(token->value, new);
+			free(token->value);
+			token->value = new;
 		}
 		token = token->next;
 	}

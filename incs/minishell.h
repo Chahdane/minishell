@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/02 22:38:45 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/06 01:26:09 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,10 @@ int		parse_line(char *line);
 int		check_name(char **line, t_token *token);
 void	init_env_lst(char **env);
 void	*ft_malloc(size_t count, size_t size, int is_exit);
+int		ft_expand(t_token *token);
+int		ft_strcmp(char *s1, char *s2);
+void 	check_n_expand(char *value, char *new, int *i, int *j);
+int		ft_expand(t_token *token);
 
 //miscellaneous defines
 # define PROMPT  "\x1b[32mminishell$ \x1b[0m"

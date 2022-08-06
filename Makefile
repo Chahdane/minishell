@@ -6,7 +6,7 @@
 #    By: owahdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/19 20:16:21 by owahdani          #+#    #+#              #
-#    Updated: 2022/08/02 22:31:35 by owahdani         ###   ########.fr        #
+#    Updated: 2022/08/05 17:23:28 by owahdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC = error_handlers.c \
 	  tokenizers_2.c \
 	  environment.c \
 	  expansion.c \
+	  expansion_2.c \
 	  utils.c
 
 SRC := $(addprefix $(SRC_DIR),$(SRC))
