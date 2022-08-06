@@ -6,7 +6,7 @@
 #    By: owahdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/19 20:16:21 by owahdani          #+#    #+#              #
-#    Updated: 2022/08/06 14:37:37 by owahdani         ###   ########.fr        #
+#    Updated: 2022/08/07 00:01:49 by owahdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC = error_handlers.c \
 	  minishell.c \
 	  helpers.c \
 	  parsers.c \
+	  parsers_2.c \
 	  tokenizers.c \
 	  tokenizers_2.c \
 	  environment.c \

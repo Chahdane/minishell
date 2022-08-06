@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   parsers_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 20:18:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/06 23:16:32 by owahdani         ###   ########.fr       */
+/*   Created: 2022/08/06 23:46:01 by owahdani          #+#    #+#             */
+/*   Updated: 2022/08/07 00:01:33 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	main(int ac, char **av, char **envp)
+void	clear_names_lst(t_name *name_lst)
 {
-	char	*line;
+	t_name	*tmp;
 
-	(void) ac;
-	(void) av;
-	init_env_lst(envp);
-	line = readline(PROMPT);
-	while (line)
+	while (name_lst)
 	{
-		ft_add_history(line);
-		/* if parse line, don't execute anything*/
-		parse_line(line);
-		free(line);
-		clear_cmds_lst(g_data.cmds);
-		line = readline(PROMPT);
+		tmp = name_lst->next;
+		free(name_lst->name);
+		free(name_lst);
+		name_lst = tmp;
 	}
-	return (0);
 }

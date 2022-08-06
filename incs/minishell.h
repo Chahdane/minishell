@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/06 19:06:35 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/06 23:44:24 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ enum e_type
 
 enum e_out_mode
 {
-	OUT,
+	NEW,
 	APP
 };
 
@@ -55,10 +55,10 @@ typedef struct s_cmd
 	char			*cmd;
 	t_name			*infiles;
 	t_name			*outfiles;
-	int				output_mode;
+	enum e_out_mode	out_mode;
 	t_name			*heredoc_lst;
 	int				heredoc;
-	int				input;
+	enum e_input	input_source;
 	t_name			*args_lst;
 	char			**args;
 	struct s_cmd	*next;
