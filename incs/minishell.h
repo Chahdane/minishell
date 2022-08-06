@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/06 17:04:31 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/06 19:06:35 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,19 @@ enum e_type
 	OTHER
 };
 
+enum e_out_mode
+{
+	OUT,
+	APP
+};
+
+enum e_input
+{
+	INFILE,
+	HEREDOC,
+	STDIN
+};
+
 //structures
 typedef struct s_name
 {
@@ -43,7 +56,8 @@ typedef struct s_cmd
 	t_name			*infiles;
 	t_name			*outfiles;
 	int				output_mode;
-	t_name			*heredoc;
+	t_name			*heredoc_lst;
+	int				heredoc;
 	int				input;
 	t_name			*args_lst;
 	char			**args;
@@ -70,7 +84,6 @@ typedef struct s_data
 	t_env	*env_lst;
 	t_cmd	*cmds;
 	int		exit_code;
-	char	*prompt;
 }				t_data;
 
 //global variable
@@ -99,9 +112,10 @@ int		ft_strcmp(char *s1, char *s2);
 void	check_n_expand(char *value, char *new, int *i, int *j);
 int		ft_expand(t_token *token);
 void	remove_quotes(char *value);
+void	ft_add_history(char *line);
 
 //miscellaneous defines
-# define PROMPT  "\x1b[32mminishell$ \x1b[0m"
+# define PROMPT  "MINISHELL$> "
 
 // errors
 # define QUOTES "syntax error: unclosed quotes"
