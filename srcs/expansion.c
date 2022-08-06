@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:43:13 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/06 01:30:36 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/06 16:20:58 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	value_len(char *var, int *i)
 	t_env	*tmp_env;
 
 	j = 0;
-	while (ft_isalnum(var[*i + j]))
+	while (ft_isalnum(var[*i + j]) || var[*i + j] == '_')
 		j++;
 	tmp = ft_strndup(var + *i, j);
 	if (!tmp)
@@ -40,7 +40,7 @@ int	value_len(char *var, int *i)
 	return (j);
 }
 
-int	get_expansion_len(char *var, int *i, int *is_expand)
+int	get_expansion_len(char *var, int *i)
 {
 	int	len;
 
@@ -49,15 +49,9 @@ int	get_expansion_len(char *var, int *i, int *is_expand)
 	{
 		len++;
 		(*i)++;
-		*is_expand = 1;
 	}
-	else if (ft_isalpha(var[*i]))
-	{
+	else if (ft_isalpha(var[*i]) || var[*i] == '_')
 		len += value_len(var, i);
-		*is_expand = 1;
-	}
-	else
-		(*i)++;
 	return (len);
 }
 
@@ -65,11 +59,9 @@ int	len_after_expand(char *value)
 {
 	int	len;
 	int	i;
-	int	is_expand;
 
 	len = ft_strlen(value);
 	i = 0;
-	is_expand = 0;
 	while (value[i])
 	{
 		if (value[i] == '\'')
@@ -79,13 +71,12 @@ int	len_after_expand(char *value)
 			i++;
 			while (value[i] != '\"')
 				if (value[i++] == '$')
-					len += get_expansion_len(value, &i, &is_expand);
+					len += get_expansion_len(value, &i);
+			i++;
 		}
 		else if (value[i++] == '$')
-			len += get_expansion_len(value, &i, &is_expand);
+			len += get_expansion_len(value, &i);
 	}
-	if (!is_expand)
-		return (-1);
 	return (len);
 }
 
@@ -139,6 +130,8 @@ int	ft_expand(t_token *token)
 			free(token->value);
 			token->value = new;
 		}
+		else
+			remove_quotes(token->value);
 		token = token->next;
 	}
 	return (0);

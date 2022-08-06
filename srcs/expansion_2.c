@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 17:23:07 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/06 01:32:46 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/06 17:06:19 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_value_from_env(char *value, int *i)
 	t_env	*tmp_env;
 
 	j = 0;
-	while (ft_isalnum(value[*i + j]))
+	while (ft_isalnum(value[*i + j]) || value[*i + j] == '_')
 		j++;
 	tmp = ft_strndup(value + *i, j);
 	(*i) += j;
@@ -30,12 +30,13 @@ char	*get_value_from_env(char *value, int *i)
 			break ;
 		tmp_env = tmp_env->next;
 	}
+	free(tmp);
 	if (!tmp_env)
 		return (NULL);
 	return (tmp_env->value);
 }
 
-void check_n_expand(char *value, char *new, int *i, int *j)
+void	check_n_expand(char *value, char *new, int *i, int *j)
 {
 	int		k;
 	char	*tmp;
@@ -47,8 +48,10 @@ void check_n_expand(char *value, char *new, int *i, int *j)
 		tmp = ft_itoa(g_data.exit_code);
 		while (tmp[k])
 			new[(*j)++] = tmp[k++];
+		free(tmp);
 	}
-	else if (value[*i] == '$' && ft_isalpha(value[*i + 1]))
+	else if (value[*i] == '$'
+		&& (ft_isalpha(value[*i + 1]) || value[*i + 1] == '_'))
 	{
 		(*i)++;
 		tmp = get_value_from_env(value, i);
@@ -57,4 +60,23 @@ void check_n_expand(char *value, char *new, int *i, int *j)
 	}
 	else
 		new[(*j)++] = value[(*i)++];
+}
+
+void	remove_quotes(char *value)
+{
+	int	i;
+
+	i = 0;
+	if (value[i] == '\'')
+	{
+		while (value[++i] != '\'')
+			value[i - 1] = value[i];
+		value[i - 1] = 0;
+	}
+	else if (value[i] == '\"')
+	{
+		while (value[++i] != '\"')
+			value[i - 1] = value[i];
+		value[i - 1] = 0;
+	}
 }
