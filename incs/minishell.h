@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/06 23:44:24 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/07 18:58:31 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ enum e_input
 typedef struct s_name
 {
 	char			*name;
-	struct s_file	*next;
+	enum e_out_mode	out_mode;
+	struct s_name	*next;
 }				t_name;
 
 typedef struct s_cmd
@@ -55,7 +56,6 @@ typedef struct s_cmd
 	char			*cmd;
 	t_name			*infiles;
 	t_name			*outfiles;
-	enum e_out_mode	out_mode;
 	t_name			*heredoc_lst;
 	int				heredoc;
 	enum e_input	input_source;
@@ -113,6 +113,10 @@ void	check_n_expand(char *value, char *new, int *i, int *j);
 int		ft_expand(t_token *token);
 void	remove_quotes(char *value);
 void	ft_add_history(char *line);
+int		add_name(t_name **name_lst, t_token *token);
+void	clear_names_lst(t_name *name_lst);
+int		clear_cmds_lst(t_cmd *cmds);
+int		args_lst_to_arr(t_cmd **cmd);
 
 //miscellaneous defines
 # define PROMPT  "MINISHELL$> "

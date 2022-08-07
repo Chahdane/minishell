@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/06 23:16:32 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/07 14:39:52 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int ac, char **av, char **envp)
 	while (line)
 	{
 		ft_add_history(line);
-		/* if parse line, don't execute anything*/
+		/* if !parse_line, execute*/
 		parse_line(line);
 		free(line);
 		clear_cmds_lst(g_data.cmds);

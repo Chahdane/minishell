@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:46:34 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/06 23:55:16 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/07 19:22:05 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ t_cmd	*create_new_cmd(void)
 	new->cmd = NULL;
 	new->infiles = NULL;
 	new->outfiles = NULL;
-	new->out_mode = NEW;
 	new->heredoc_lst = NULL;
 	new->heredoc = -1;
 	new->input_source = STDIN;
 	new->args_lst = NULL;
 	new->args = NULL;
 	new->next = NULL;
+	return (new);
 }
 
 int	clear_cmds_lst(t_cmd *cmds)
@@ -47,7 +47,7 @@ int	clear_cmds_lst(t_cmd *cmds)
 		free(cmds);
 		cmds = tmp;
 	}
-	g_data.cmds = NULL:
+	g_data.cmds = NULL;
 	return (-1);
 }
 
@@ -56,10 +56,31 @@ int	fill_in_cmds(t_token *token, t_cmd *new)
 	if (token->type == INF)
 	{
 		new->input_source = INFILE;
+		if (add_name(&new->infiles, token))
+			return (-1);
 	}
+	else if (token->type == OUTF || token->type == APPF)
+	{
+		if (add_name(&new->outfiles, token))
+			return (-1);
+	}
+	else if (token->type == HRDOC)
+	{
+		new->input_source = HEREDOC;
+		if (add_name(&new->heredoc_lst, token))
+			return (-1);
+	}
+	else if (token->type == OTHER)
+	{
+		if (!new->cmd)
+			new->cmd = ft_strdup(token->value);
+		else if (add_name(&new->args_lst, token))
+			return (-1);
+	}
+	return (0);
 }
 
-int	transfrom_tokens(t_token *tokens)
+int	transform_tokens(t_token *tokens)
 {
 	t_cmd	*new;
 
@@ -73,12 +94,93 @@ int	transfrom_tokens(t_token *tokens)
 		{
 			new->next = create_new_cmd();
 			if (!new->next)
-				return (clear_cmds_lst(cmds));
+				return (clear_cmds_lst(g_data.cmds));
+			new = new->next;
 		}
-		else
+		else if (fill_in_cmds(tokens, new))
+			return (clear_cmds_lst(g_data.cmds));
 		tokens = tokens->next;
 	}
+	new = g_data.cmds;
+	while (new)
+		if (args_lst_to_arr(&new))
+			return (clear_cmds_lst(g_data.cmds));
 	return (0);
+}
+
+void	print_cmds(void)
+{
+	t_cmd	*cmd;
+	t_name	*tmp;
+	int		i;
+
+	cmd = g_data.cmds;
+	printf("\n\n");
+	while (cmd)
+	{
+		printf("\e[0;31mCMD = %s\e[0;37m\n", cmd->cmd);
+		tmp = cmd->infiles;
+		printf("\e[0;32mINFILES = \e[0;37m");
+		while (tmp)
+		{
+			printf("(%s)", tmp->name);
+			tmp = tmp->next;
+			if (tmp)
+				printf(", ");
+		}
+		printf("\n");
+		tmp = cmd->outfiles;
+		printf("\e[0;33mOUTFILES = \e[0;37m");
+		while (tmp)
+		{
+			printf("(%s) ==> ", tmp->name);
+			printf("%s", tmp->out_mode == NEW ? "new" : "append");
+			tmp = tmp->next;
+			if (tmp)
+				printf(", ");
+		}
+		printf("\n");
+		tmp = cmd->heredoc_lst;
+		printf("\e[0;34mHEREDOCS = \e[0;37m");
+		while (tmp)
+		{
+			printf("(%s)", tmp->name);
+			tmp = tmp->next;
+			if (tmp)
+				printf(", ");
+		}
+		printf("\n");
+		if (cmd->input_source == STDIN)
+			printf("\e[0;36mINPUT_SOURCE = standard input\e[0;37m\n");
+		else if (cmd->input_source == HEREDOC)
+			printf("\e[0;36mINPUT_SOURCE = heredoc\e[0;37m\n");
+		else if (cmd->input_source == INFILE)
+			printf("\e[0;36mINPUT_SOURCE = infile\e[0;37m\n");
+		tmp = cmd->args_lst;
+		printf("\e[1;32mARGS_LIST = \e[0;37m");
+		while (tmp)
+		{
+			printf("(%s)", tmp->name);
+			tmp = tmp->next;
+			if (tmp)
+				printf(" -> ");
+		}
+		printf("\n");
+		printf("\e[1;31mARGS_ARRAY = \e[0;37m");
+		i = 0;
+		while (cmd->args && (cmd->args)[i])
+		{
+			printf("[%i] == (%s)", i, (cmd->args)[i]);
+			i++;
+			if ((cmd->args)[i])
+				printf(", ");
+		}
+		cmd = cmd->next;
+		if (cmd)
+			printf("\n\n     =======================      \n\n");
+		else
+			printf("\n");
+	}
 }
 
 int	parse_line(char *line)
@@ -92,6 +194,7 @@ int	parse_line(char *line)
 		return (clear_token_lst(tokens) == NULL);
 	if (transform_tokens(tokens))
 		return (clear_token_lst(tokens) == NULL);
+	print_cmds();
 	clear_token_lst(tokens);
 	return (0);
 }
