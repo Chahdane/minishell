@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 23:46:01 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/07 19:14:40 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/07 20:24:00 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,19 @@ int	add_name(t_name **name_lst, t_token *token)
 	return (0);
 }
 
+static int	name_lst_size(t_name *name_lst)
+{
+	int	i;
+
+	i = 0;
+	while (name_lst)
+	{
+		i++;
+		name_lst = name_lst->next;
+	}
+	return (i);
+}
+
 int	args_lst_to_arr(t_cmd **cmd)
 {
 	int		i;
@@ -64,13 +77,7 @@ int	args_lst_to_arr(t_cmd **cmd)
 		(*cmd) = (*cmd)->next;
 		return (0);
 	}
-	i = 0;
-	tmp = (*cmd)->args_lst;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp->next;
-	}
+	i = name_lst_size((*cmd)->args_lst);
 	(*cmd)->args = ft_malloc(i + 1, sizeof(char *), 0);
 	if (!(*cmd)->args)
 		return (-1);

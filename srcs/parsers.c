@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:46:34 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/07 19:22:05 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/07 20:25:24 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	print_cmds(void)
 	int		i;
 
 	cmd = g_data.cmds;
-	printf("\n\n");
+	printf("\n");
 	while (cmd)
 	{
 		printf("\e[0;31mCMD = %s\e[0;37m\n", cmd->cmd);
