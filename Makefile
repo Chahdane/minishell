@@ -6,7 +6,7 @@
 #    By: owahdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/19 20:16:21 by owahdani          #+#    #+#              #
-#    Updated: 2022/08/07 00:01:49 by owahdani         ###   ########.fr        #
+#    Updated: 2022/08/09 17:14:35 by owahdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SRC = error_handlers.c \
 	  environment.c \
 	  expansion.c \
 	  expansion_2.c \
-	  utils.c
+	  utils.c \
+	  heredoc.c
 
 SRC := $(addprefix $(SRC_DIR),$(SRC))
 OBJ = $(patsubst $(SRC_DIR)%.c,%.o,$(SRC))

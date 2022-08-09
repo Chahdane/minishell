@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:46:34 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/07 20:25:24 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/09 23:04:54 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	print_cmds(void)
 	printf("\n");
 	while (cmd)
 	{
-		printf("\e[0;31mCMD = %s\e[0;37m\n", cmd->cmd);
+		printf("\e[0;31mCMD = (%s)\e[0;37m\n", cmd->cmd);
 		tmp = cmd->infiles;
 		printf("\e[0;32mINFILES = \e[0;37m");
 		while (tmp)
@@ -193,6 +193,8 @@ int	parse_line(char *line)
 	if (!tokens || ft_expand(tokens))
 		return (clear_token_lst(tokens) == NULL);
 	if (transform_tokens(tokens))
+		return (clear_token_lst(tokens) == NULL);
+	if (read_heredocs())
 		return (clear_token_lst(tokens) == NULL);
 	print_cmds();
 	clear_token_lst(tokens);

@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 17:23:07 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/06 17:06:19 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/09 16:58:30 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ void	check_n_expand(char *value, char *new, int *i, int *j)
 			new[(*j)++] = tmp[k++];
 		free(tmp);
 	}
-	else if (value[*i] == '$'
-		&& (ft_isalpha(value[*i + 1]) || value[*i + 1] == '_'))
+	else if (value[*i] == '$' && ft_isalpha(value[*i + 1]))
 	{
 		(*i)++;
 		tmp = get_value_from_env(value, i);
@@ -65,18 +64,21 @@ void	check_n_expand(char *value, char *new, int *i, int *j)
 void	remove_quotes(char *value)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	if (value[i] == '\'')
+	j = 0;
+	while (value[i])
 	{
-		while (value[++i] != '\'')
-			value[i - 1] = value[i];
-		value[i - 1] = 0;
+		if (value[i] == '\'')
+			while (value[++i] != '\'')
+				value[j++] = value[i];
+		else if (value[i] == '\"')
+			while (value[++i] != '\"')
+				value[j++] = value[i];
+		else
+			value[j++] = value[i];
+		i++;
 	}
-	else if (value[i] == '\"')
-	{
-		while (value[++i] != '\"')
-			value[i - 1] = value[i];
-		value[i - 1] = 0;
-	}
+	value[j] = 0;
 }
