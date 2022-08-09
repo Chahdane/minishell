@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:26:49 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/09 19:36:34 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/09 20:21:49 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	search_for_var(t_env *env, const char *var)
 	while (env)
 	{
 		if (strncmp(env->var, var, strlen(var)) == 0)
-			return (i);
+			return (i - 1);
 		env = env->next;
 		i++;
 	}
@@ -97,14 +97,17 @@ void	add_node(t_env **lst, char *var, char *value)
 	ptr->next = new;
 }
 
-void	replace_value(t_env *env, int index)
+void	replace_value(t_env *env, int index, char *new_value, int flag)
 {
 	int	i;
 
 	i = -1;
 	while (i++ < index && env->next)
 		env = env->next;
-	printf("%s,\n",env->var);
+	if (!flag)
+		env->value = new_value;
+	else
+		env->value = ft_strjoin(env->value,new_value);
 }
 
 void	export(t_env *env, char **args)
@@ -120,14 +123,12 @@ void	export(t_env *env, char **args)
 		sp_arg = split_arg(args[i]);
 		if (check_naming(sp_arg[0]) == 1)
 		{
-			if (sp_arg[2][0] == '-' && search_for_var(env, sp_arg[0]) == -1)
+			if (sp_arg[2][0] == '-' && search_for_var(env, sp_arg[0]) > -1)
+				replace_value(env, search_for_var(env, sp_arg[0]),sp_arg[1], 0);
+			else if (search_for_var(env, sp_arg[0]) == -1)
 				add_node(&env,sp_arg[0], sp_arg[1]);
-			else if (sp_arg[2][0] == '-' && search_for_var(env, sp_arg[0]) != -1)
-			{
-				printf("sig?\n");
-				replace_value(env, search_for_var(env, sp_arg[0]));
-			}
-				// add
+			else if (sp_arg[2][0] == '+' && search_for_var(env, sp_arg[0]) > -1)
+				replace_value(env, search_for_var(env, sp_arg[0]),sp_arg[1], 1);
 		}
 		free(sp_arg);
 		i++;
