@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 21:11:19 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/10 21:25:05 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/10 23:44:02 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,10 @@
 
 void	pwd(void)
 {
-	t_env	*env;
+	char	*pwd;
 
-    env = g_data.env_lst;
-    while (env)
-    {
-        if (ft_strcmp(env->var, "PWD") == 0)
-            printf("%s\n", env->value);
-        env = env->next;
-    }
-    g_data.exit_code = 0;
+	pwd = NULL;
+	pwd = getcwd(pwd, PATH_MAX);
+	printf("%s\n", pwd);
+	g_data.exit_code = 0;
 }
