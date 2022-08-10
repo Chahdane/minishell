@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/10 20:02:21 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/10 20:30:36 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_data
 t_data	g_data;
 
 // prototypes
+//PARSING
 int		ft_perror(char *name, char *error, int free);
 int		check_quotes(char *line);
 t_token	*get_pipe(char **line, t_token *token);
@@ -118,19 +119,18 @@ void	clear_names_lst(t_name *name_lst);
 int		clear_cmds_lst(t_cmd *cmds);
 int		args_lst_to_arr(t_cmd **cmd);
 
+// BUILTINS 
+t_env	*clone_list(void);
+void	find_smallest(t_env *env);
+void	print_in(void);
+int		check_naming(char *str);
+int		search_var(t_env *env, const char *var);
+
 //miscellaneous defines
 # define PROMPT  "MINISHELL$> "
 
 // errors
 # define QUOTES "syntax error: unclosed quotes"
 # define UNXPCT "syntax error near unexpected token \'"
-
-// BUILTINS
-// -> export : 
-t_env	*clone_list(void);
-void	find_smallest(t_env *env);
-void	print_in(void);
-int		check_naming(char *str);
-int		search_var(t_env *env, const char *var);
 
 #endif
