@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/07 18:58:31 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/10 20:02:21 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,13 @@ int		args_lst_to_arr(t_cmd **cmd);
 // errors
 # define QUOTES "syntax error: unclosed quotes"
 # define UNXPCT "syntax error near unexpected token \'"
+
+// BUILTINS
+// -> export : 
+t_env	*clone_list(void);
+void	find_smallest(t_env *env);
+void	print_in(void);
+int		check_naming(char *str);
+int		search_var(t_env *env, const char *var);
 
 #endif
