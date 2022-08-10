@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:26:49 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/09 20:21:49 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/09 22:37:12 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	search_for_var(t_env *env, const char *var)
 	while (env)
 	{
 		if (strncmp(env->var, var, strlen(var)) == 0)
-			return (i - 1);
+			return (i);
 		env = env->next;
 		i++;
 	}
@@ -110,13 +110,65 @@ void	replace_value(t_env *env, int index, char *new_value, int flag)
 		env->value = ft_strjoin(env->value,new_value);
 }
 
+t_env	*get_min(int index)
+{
+	t_env	*env;
+	t_env	*min;
+	int		i;
+
+	i = 0;
+	env = g_data.env_lst;
+	//min = env;
+	while (env->next)
+	{
+		if (ft_strcmp(env->var,env->next->var) > 0 && env->next->index > index)
+			min = env->next;
+		env = env->next;
+	}
+	min->index = index;
+	return min;
+}
+
+void	print_in_order()
+{
+	t_env *env;
+	t_env *temp;
+	env = g_data.env_lst;
+	int i = 1;
+	int len = 0;
+	temp = env;
+	t_env *print;
+
+	while(temp)
+	{
+		temp->index = 0;
+		//printf("%d-",temp->index);
+		temp = temp->next;
+		len++;
+	}
+	while (i <= len)
+	{
+		print = get_min(i);
+		printf("%s\n",print->var);
+		i++;
+	}
+
+}
+
+
 void	export(t_env *env, char **args)
 {
 	int i;
 	char **sp_arg;
 
-	// if (!args)
-	// 	//print in alpha order + return
+	//printf("%d-",env->index);
+	if (!args)
+	{
+		printf("\n\n\n\ndas\n\n\n");
+		print_in_order();
+
+	}
+	return ;
 	i = 0;
 	while (args[i])
 	{
@@ -124,12 +176,13 @@ void	export(t_env *env, char **args)
 		if (check_naming(sp_arg[0]) == 1)
 		{
 			if (sp_arg[2][0] == '-' && search_for_var(env, sp_arg[0]) > -1)
-				replace_value(env, search_for_var(env, sp_arg[0]),sp_arg[1], 0);
+				replace_value(env, search_for_var(env, sp_arg[0]) - 1,sp_arg[1], 0);
 			else if (search_for_var(env, sp_arg[0]) == -1)
 				add_node(&env,sp_arg[0], sp_arg[1]);
 			else if (sp_arg[2][0] == '+' && search_for_var(env, sp_arg[0]) > -1)
-				replace_value(env, search_for_var(env, sp_arg[0]),sp_arg[1], 1);
+				replace_value(env, search_for_var(env, sp_arg[0]) - 1,sp_arg[1], 1);
 		}
+		//printf("%d\n\n\n",ft_strcmp("A","a"));
 		free(sp_arg);
 		i++;
 	}
