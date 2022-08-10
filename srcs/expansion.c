@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:43:13 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/09 21:35:44 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/10 21:22:40 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,5 @@ int	ft_expand(t_token *token)
 		}
 		token = token->next;
 	}
-	/*else
-		remove_quotes(token->value);*/
 	return (0);
 }

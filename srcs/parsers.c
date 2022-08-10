@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:46:34 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/09 23:04:54 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/11 00:00:52 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_cmd	*create_new_cmd(void)
 	new->infiles = NULL;
 	new->outfiles = NULL;
 	new->heredoc_lst = NULL;
+	new->heredoc_path = NULL;
 	new->heredoc = -1;
 	new->input_source = STDIN;
 	new->args_lst = NULL;
@@ -43,7 +44,12 @@ int	clear_cmds_lst(t_cmd *cmds)
 		clear_names_lst(cmds->outfiles);
 		clear_names_lst(cmds->heredoc_lst);
 		clear_names_lst(cmds->args_lst);
+		if (cmds->heredoc_path)
+			unlink(cmds->heredoc_path);
+		free(cmds->heredoc_path);
 		free(cmds->args);
+		if (cmds->heredoc > 0)
+			close(cmds->heredoc);
 		free(cmds);
 		cmds = tmp;
 	}

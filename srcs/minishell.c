@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/10 19:26:48 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/10 20:40:23 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ int	main(int ac, char **av, char **envp)
 
 	(void) ac;
 	(void) av;
-	init_env_lst(envp);
 
-	//return 0;
+	init_env_lst(envp);
 	line = readline(PROMPT);
 	while (line)
 	{
@@ -31,7 +30,7 @@ int	main(int ac, char **av, char **envp)
 		parse_line(line);
 		//export(g_data.env_lst, g_data.cmds->args);
 		//env(g_data.env_lst);
-		print_in();
+		//print_in();
 		free(line);
 		clear_cmds_lst(g_data.cmds);
 		line = readline(PROMPT);

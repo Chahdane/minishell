@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/10 20:30:36 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/10 21:20:07 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <libft.h>
@@ -57,6 +58,7 @@ typedef struct s_cmd
 	t_name			*infiles;
 	t_name			*outfiles;
 	t_name			*heredoc_lst;
+	char			*heredoc_path;
 	int				heredoc;
 	enum e_input	input_source;
 	t_name			*args_lst;
@@ -118,6 +120,7 @@ int		add_name(t_name **name_lst, t_token *token);
 void	clear_names_lst(t_name *name_lst);
 int		clear_cmds_lst(t_cmd *cmds);
 int		args_lst_to_arr(t_cmd **cmd);
+int		read_heredocs(void);
 
 // BUILTINS 
 t_env	*clone_list(void);
