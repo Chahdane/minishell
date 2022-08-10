@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/10 21:20:07 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/11 00:04:17 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <libft.h>
+#include <limits.h> 
+
 
 // enums
 enum e_type
@@ -126,8 +128,11 @@ int		read_heredocs(void);
 t_env	*clone_list(void);
 void	find_smallest(t_env *env);
 void	print_in(void);
-int		check_naming(char *str);
+int		check_naming(char *str, char *str2);
 int		search_var(t_env *env, const char *var);
+char	**split_arg(char *arg);
+void    pwd(void);
+
 
 //miscellaneous defines
 # define PROMPT  "MINISHELL$> "
