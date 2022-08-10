@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:43:13 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/06 16:20:58 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/09 21:35:44 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	get_expansion_len(char *var, int *i)
 		len++;
 		(*i)++;
 	}
-	else if (ft_isalpha(var[*i]) || var[*i] == '_')
+	else if (ft_isalpha(var[*i]))
 		len += value_len(var, i);
 	return (len);
 }
@@ -91,16 +91,17 @@ void	get_expanded_val(char *value, char *new)
 	{
 		if (value[i] == '\'')
 		{
-			while (value[++i] != '\'')
-				new[j++] = value[i];
-			i++;
+			new[j++] = value[i++];
+			while (value[i] != '\'')
+				new[j++] = value[i++];
+			new[j++] = value[i++];
 		}
 		else if (value[i] == '\"')
 		{
-			i++;
+			new[j++] = value[i++];
 			while (value[i] != '\"')
 				check_n_expand(value, new, &i, &j);
-			i++;
+			new[j++] = value[i++];
 		}
 		else
 			check_n_expand(value, new, &i, &j);
@@ -118,21 +119,17 @@ int	ft_expand(t_token *token)
 		if (token->type != HRDOC && token->type != PIPE)
 		{
 			len = len_after_expand(token->value);
-			if (len < 0)
-			{
-				token = token->next;
-				continue ;
-			}
 			new = ft_malloc(len + 1, 1, 0);
 			if (!new)
 				return (-1);
 			get_expanded_val(token->value, new);
 			free(token->value);
 			token->value = new;
-		}
-		else
 			remove_quotes(token->value);
+		}
 		token = token->next;
 	}
+	/*else
+		remove_quotes(token->value);*/
 	return (0);
 }

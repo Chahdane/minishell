@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:26:49 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/10 19:54:48 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/10 20:24:48 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,52 @@ int	check_naming(char *str)
 	return (1);
 }
 
+t_env	*get_min(int index)
+{
+	t_env	*env;
+	t_env	*min;
+	int		i;
+
+	i = 0;
+	env = g_data.env_lst;
+	//min = env;
+	while (env->next)
+	{
+		if (ft_strcmp(env->var,env->next->var) > 0 && env->next->index > index)
+			min = env->next;
+		env = env->next;
+	}
+	min->index = index;
+	return min;
+}
+
+void	print_in_order()
+{
+	t_env *env;
+	t_env *temp;
+	env = g_data.env_lst;
+	int i = 1;
+	int len = 0;
+	temp = env;
+	t_env *print;
+
+	while(temp)
+	{
+		temp->index = 0;
+		//printf("%d-",temp->index);
+		temp = temp->next;
+		len++;
+	}
+	while (i <= len)
+	{
+		print = get_min(i);
+		printf("%s\n",print->var);
+		i++;
+	}
+
+}
+
+
 void	export(t_env *env, char **args)
 {
 	int		i;
@@ -118,6 +164,7 @@ void	export(t_env *env, char **args)
 			else if (sp_arg[2][0] == '+' && search_var(env, sp_arg[0]) > -1)
 				replace_val(env, search_var(env, sp_arg[0]) - 1, sp_arg[1], 1);
 		}
+		//printf("%d\n\n\n",ft_strcmp("A","a"));
 		free(sp_arg);
 		i++;
 	}
