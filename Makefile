@@ -6,7 +6,7 @@
 #    By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/19 20:16:21 by owahdani          #+#    #+#              #
-#    Updated: 2022/08/10 20:33:06 by owahdani         ###   ########.fr        #
+#    Updated: 2022/08/12 15:45:41 by achahdan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRC = error_handlers.c \
 	  heredoc.c \
 	  b_env.c \
 	  b_export.c \
-	  b_export2.c
+	  b_export2.c \
+	  b_echo.c
 
 SRC := $(addprefix $(SRC_DIR),$(SRC))
 OBJ = $(patsubst $(SRC_DIR)%.c,%.o,$(SRC))

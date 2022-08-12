@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/12 15:29:15 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:44:39 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void	env(t_env *env);
 void	print_export(void);
 void	export(t_env *env, char **args);
 void	free_2d_array(char **tab);
+void    echo(void);
 
 //miscellaneous defines
 # define PROMPT  "MINISHELL$> "
