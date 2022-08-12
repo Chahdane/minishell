@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/11 00:04:17 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:29:15 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <libft.h>
-#include <limits.h> 
-
+# include <limits.h> 
 
 // enums
 enum e_type
@@ -131,8 +130,11 @@ void	print_in(void);
 int		check_naming(char *str, char *str2);
 int		search_var(t_env *env, const char *var);
 char	**split_arg(char *arg);
-void    pwd(void);
-
+void	pwd(void);
+void	env(t_env *env);
+void	print_export(void);
+void	export(t_env *env, char **args);
+void	free_2d_array(char **tab);
 
 //miscellaneous defines
 # define PROMPT  "MINISHELL$> "
