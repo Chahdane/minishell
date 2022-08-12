@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/12 18:48:57 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/12 21:53:43 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void	fill_env(void);
 void	print_2d(void);
 void    unset(void);
 void search_and_unset(char *str);
+void    cd(char **envp);
 
 
 //miscellaneous defines
