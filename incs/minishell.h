@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/12 15:44:39 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/12 18:20:12 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,16 +126,17 @@ int		read_heredocs(void);
 // BUILTINS 
 t_env	*clone_list(void);
 void	find_smallest(t_env *env);
-void	print_in(void);
 int		check_naming(char *str, char *str2);
 int		search_var(t_env *env, const char *var);
 char	**split_arg(char *arg);
 void	pwd(void);
-void	env(t_env *env);
+void	env(void);
 void	print_export(void);
 void	export(t_env *env, char **args);
 void	free_2d_array(char **tab);
-void    echo(void);
+void	echo(void);
+void	fill_env(void);
+void	print_2d(void);
 
 //miscellaneous defines
 # define PROMPT  "MINISHELL$> "
