@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:26:49 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/12 18:08:27 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/12 19:38:50 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	check_naming(char *str, char *str2)
 		if (str2[0] != 0)
 			printf("=%s", str2);
 		printf("': not a valid identifier\n");
+		g_data.exit_code = 1;
 		return (-1);
 	}
 	while (str[i])
@@ -93,6 +94,7 @@ int	check_naming(char *str, char *str2)
 			if (str2[0] != 0)
 				printf("=%s", str2);
 			printf("': not a valid identifier\n");
+			g_data.exit_code = 1;
 			return (-1);
 		}
 		i++;
