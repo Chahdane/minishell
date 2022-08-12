@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 19:44:07 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/12 15:26:53 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/13 00:21:28 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ void	free_2d_array(char **tab)
 	free(tab);
 }
 
-int	search_var(t_env *env, const char *var)
+// search for var
+int	sv(t_env *env, const char *var)
 {
 	int	i;
 

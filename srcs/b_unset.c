@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 17:13:07 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/12 19:39:24 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/12 23:50:48 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,5 @@ void	unset(void)
 			search_and_unset(args[i]);
 		i++;
 	}
-	fill_env();
+	//fill_env();
 }
