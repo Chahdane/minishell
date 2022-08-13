@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 23:46:01 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/07 20:24:00 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/13 23:45:54 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ int	add_name(t_name **name_lst, t_token *token)
 		return (-1);
 	new->next = NULL;
 	new->name = ft_strdup(token->value);
-	if (!new->name)
-		return (-1);
-	new->out_mode = NEW;
+	new->f_mode = NEW;
 	if (token->type == APPF)
-		new->out_mode = APP;
+		new->f_mode = APP;
+	if (token->type == INF)
+		new->f_mode = IN;
 	return (0);
 }
 

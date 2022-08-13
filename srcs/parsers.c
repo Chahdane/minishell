@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:46:34 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/13 16:01:01 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/13 23:48:48 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_cmd	*create_new_cmd(void)
 	new = ft_malloc(1, sizeof(t_cmd), 0);
 	if (!new)
 		return (NULL);
-	new->infiles = NULL;
-	new->outfiles = NULL;
+	new->cmd = NULL;
+	new->files = NULL;
 	new->heredoc_lst = NULL;
 	new->heredoc_path = NULL;
 	new->heredoc = -1;
@@ -38,8 +38,7 @@ int	clear_cmds_lst(t_cmd *cmds)
 	while (cmds)
 	{
 		tmp = cmds->next;
-		clear_names_lst(cmds->infiles);
-		clear_names_lst(cmds->outfiles);
+		clear_names_lst(cmds->files);
 		clear_names_lst(cmds->heredoc_lst);
 		clear_names_lst(cmds->args_lst);
 		if (cmds->heredoc_path)
@@ -60,12 +59,12 @@ int	fill_in_cmds(t_token *token, t_cmd *new)
 	if (token->type == INF)
 	{
 		new->input_source = INFILE;
-		if (add_name(&new->infiles, token))
+		if (add_name(&new->files, token))
 			return (-1);
 	}
 	else if (token->type == OUTF || token->type == APPF)
 	{
-		if (add_name(&new->outfiles, token))
+		if (add_name(&new->files, token))
 			return (-1);
 	}
 	else if (token->type == HRDOC)
@@ -78,6 +77,8 @@ int	fill_in_cmds(t_token *token, t_cmd *new)
 	{
 		if (add_name(&new->args_lst, token))
 			return (-1);
+		if (!new->cmd)
+			new->cmd = new->args_lst->name;
 	}
 	return (0);
 }
@@ -110,7 +111,7 @@ int	transform_tokens(t_token *tokens)
 	return (0);
 }
 
-void	print_cmds(void)
+/*void	print_cmds(void)
 {
 	t_cmd	*cmd;
 	t_name	*tmp;
@@ -186,7 +187,7 @@ void	print_cmds(void)
 		else
 			printf("\n");
 	}
-}
+}*/
 
 void	print_heredocs(void)
 {

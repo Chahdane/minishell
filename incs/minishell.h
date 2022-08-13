@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/13 23:50:52 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 00:00:22 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ enum e_type
 	OTHER
 };
 
-enum e_out_mode
+enum e_f_mode
 {
 	NEW,
-	APP
+	APP,
+	IN
 };
 
 enum e_input
@@ -50,14 +51,14 @@ enum e_input
 typedef struct s_name
 {
 	char			*name;
-	enum e_out_mode	out_mode;
+	enum e_f_mode	f_mode;
 	struct s_name	*next;
 }				t_name;
 
 typedef struct s_cmd
 {
-	t_name			*infiles;
-	t_name			*outfiles;
+	char			*cmd;
+	t_name			*files;
 	t_name			*heredoc_lst;
 	char			*heredoc_path;
 	int				heredoc;
@@ -123,6 +124,7 @@ int		clear_cmds_lst(t_cmd *cmds);
 int		args_lst_to_arr(t_cmd **cmd);
 int		read_heredocs(void);
 int		get_expansion_len(char *var, int *i);
+void	ft_execute(void);
 
 // BUILTINS 
 t_env	*clone_list(void);
