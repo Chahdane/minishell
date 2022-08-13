@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/13 03:19:22 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/13 03:23:44 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,10 +138,9 @@ void	free_2d_array(char **tab);
 void	echo(void);
 void	fill_env(void);
 void	print_2d(void);
-void    unset(void);
-void search_and_unset(char *str);
-void    cd(char **envp);
-
+void	unset(void);
+void	search_and_unset(char *str);
+void	cd(char **envp);
 
 //miscellaneous defines
 # define PROMPT  "MINISHELL$> "
