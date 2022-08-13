@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:26:49 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/13 17:31:57 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/13 20:32:09 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	add_node(t_env **lst, char *var, char *value)
 	t_env	*ptr;
 	t_env	*new;
 
-	if (!lst)
-		return ;
 	new = malloc(sizeof(t_env));
 	new->var = ft_strdup(var);
 	new->value = ft_strdup(value);
@@ -111,6 +109,19 @@ int	check_naming(char *str, char *str2)
 	return (1);
 }
 
+//check_overwrite
+int co(char *str)
+{
+	while (*str)
+	{
+		if (*str == '=')
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
+
 void	export(t_env *env, char **args)
 {
 	int		i;
@@ -125,13 +136,19 @@ void	export(t_env *env, char **args)
 	while (args[i])
 	{
 		sp = split_arg(args[i]);
+		int j = 0;
+		while (sp[j])
+		{
+			printf("%s\n",sp[j]);
+			j++;
+		}
 		if (check_naming(sp[0], sp[1]) == 1)
 		{
-			if (sp[2][0] == '-' && sv(env, sp[0]) > -1 && sp[1][0] != 0)
+			if (sp[2][0] == '-' && sv(env, sp[0]) > -1 && !co(args[i]))
 				replace_val(env, sv(env, sp[0]) - 1, sp[1], 0);
 			else if (sv(env, sp[0]) == -1)
 				add_node(&env, sp[0], sp[1]);
-			else if (sp[2][0] == '+' && sv(env, sp[0]) > -1 && sp[1][0] != 0)
+			else if (sp[2][0] == '+' && sv(env, sp[0]) > -1 && !co(args[i]))
 				replace_val(env, sv(env, sp[0]) - 1, sp[1], 1);
 		}
 		free_2d_array(sp);
