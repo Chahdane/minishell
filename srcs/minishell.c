@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/13 02:57:28 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/13 03:26:38 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	exec(char **envp)
 {
 	char *cmd;
 
-	cmd = g_data.cmds->cmd;
+	cmd = g_data.cmds->args[0];
 	if (ft_strcmp("cd",cmd) == 0)
 		cd(envp);
 	if (ft_strcmp("export",cmd) == 0)
