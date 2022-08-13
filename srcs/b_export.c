@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:26:49 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/13 01:07:17 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/13 17:31:57 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	export(t_env *env, char **args)
 	int		i;
 	char	**sp;
 
-	if (!args)
+	if (!args[0])
 	{
 		print_export();
 		return ;

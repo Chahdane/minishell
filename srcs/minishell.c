@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/13 03:32:56 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/13 17:33:14 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	exec(char **envp)
 	if (ft_strcmp("cd",cmd) == 0)
 		cd(envp);
 	if (ft_strcmp("export",cmd) == 0)
-		export(g_data.env_lst,g_data.cmds->args);
+		export(g_data.env_lst, (g_data.cmds->args) + 1);
 	if (ft_strcmp("unset",cmd) == 0)
 		unset();
 	if (ft_strcmp("echo",cmd) == 0)
