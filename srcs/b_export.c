@@ -6,12 +6,11 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:26:49 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/10 20:44:35 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/13 01:07:17 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <string.h>
 
 char	**split_arg(char *arg)
 {
@@ -46,8 +45,8 @@ void	add_node(t_env **lst, char *var, char *value)
 	if (!lst)
 		return ;
 	new = malloc(sizeof(t_env));
-	new->var = var;
-	new->value = value;
+	new->var = ft_strdup(var);
+	new->value = ft_strdup(value);
 	new->next = NULL;
 	if (!*lst)
 	{
@@ -63,31 +62,48 @@ void	add_node(t_env **lst, char *var, char *value)
 void	replace_val(t_env *env, int index, char *new_value, int flag)
 {
 	int	i;
-
+	char	*temp;
 	i = -1;
+	temp = NULL;
 	while (i++ < index && env->next)
 		env = env->next;
 	if (!flag)
-		env->value = new_value;
+	{
+		temp = ft_strdup(new_value);
+		free(env->value);
+		env->value = temp;
+	}
 	else
-		env->value = ft_strjoin(env->value, new_value);
+	{
+		temp = ft_strjoin(env->value, new_value);
+		free(env->value);
+		env->value = temp;
+	}
 }
 
-int	check_naming(char *str)
+int	check_naming(char *str, char *str2)
 {
 	int	i;
 
 	i = 1;
 	if (!ft_isalpha(str[0]) && str[0] != '_')
 	{
-		ft_perror("minishell export: ", "not a valid identifier", 0);
+		printf("minishell: export: `%s", str);
+		if (str2[0] != 0)
+			printf("=%s", str2);
+		printf("': not a valid identifier\n");
+		g_data.exit_code = 1;
 		return (-1);
 	}
 	while (str[i])
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 		{
-			ft_perror("minishell", "export: `': not a valid identifier", 0);
+			printf("minishell: export: `%s", str);
+			if (str2[0] != 0)
+				printf("=%s", str2);
+			printf("': not a valid identifier\n");
+			g_data.exit_code = 1;
 			return (-1);
 		}
 		i++;
@@ -98,28 +114,33 @@ int	check_naming(char *str)
 void	export(t_env *env, char **args)
 {
 	int		i;
-	char	**sp_arg;
+	char	**sp;
 
 	if (!args)
 	{
-		printf("\n\n\n\ndas\n\n\n");
+		print_export();
+		return ;
 	}
-	return ;
 	i = 0;
 	while (args[i])
 	{
-		sp_arg = split_arg(args[i]);
-		if (check_naming(sp_arg[0]) == 1)
+		sp = split_arg(args[i]);
+		if (check_naming(sp[0], sp[1]) == 1)
 		{
-			if (sp_arg[2][0] == '-' && search_var(env, sp_arg[0]) > -1)
-				replace_val(env, search_var(env, sp_arg[0]) - 1, sp_arg[1], 0);
-			else if (search_var(env, sp_arg[0]) == -1)
-				add_node(&env, sp_arg[0], sp_arg[1]);
-			else if (sp_arg[2][0] == '+' && search_var(env, sp_arg[0]) > -1)
-				replace_val(env, search_var(env, sp_arg[0]) - 1, sp_arg[1], 1);
+			if (sp[2][0] == '-' && sv(env, sp[0]) > -1 && sp[1][0] != 0)
+				replace_val(env, sv(env, sp[0]) - 1, sp[1], 0);
+			else if (sv(env, sp[0]) == -1)
+				add_node(&env, sp[0], sp[1]);
+			else if (sp[2][0] == '+' && sv(env, sp[0]) > -1 && sp[1][0] != 0)
+				replace_val(env, sv(env, sp[0]) - 1, sp[1], 1);
 		}
-		//printf("%d\n\n\n",ft_strcmp("A","a"));
-		free(sp_arg);
+		free_2d_array(sp);
 		i++;
 	}
+	fill_env();
 }
+
+// TODO
+// export with -p
+// change oldpwd and pwd when cd
+// leak : unset

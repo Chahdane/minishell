@@ -6,95 +6,109 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 19:44:07 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/10 20:00:16 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/13 00:21:28 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <string.h>
 
 t_env	*clone_list(void)
 {
-	t_env	*newlist;
-	t_env	*p;
+	t_env	*new;
+	t_env	*ptr;
 	t_env	*prev;
 	t_env	*list;
 
 	list = g_data.env_lst;
-	newlist = NULL;
-	p = NULL;
+	new = NULL;
+	ptr = NULL;
 	while (list)
 	{
-		p = malloc(sizeof(*p));
-		p->var = list->var;
-		p->value = list->value;
-		if (!newlist)
-			newlist = p;
+		ptr = malloc(sizeof(t_env));
+		ptr->var = list->var;
+		ptr->value = list->value;
+		if (!new)
+			new = ptr;
 		else
-			prev->next = p;
-		prev = p;
+			prev->next = ptr;
+		prev = ptr;
 		list = list->next;
 	}
 	prev->next = NULL;
-	return (newlist);
+	return (new);
 }
 
-void	find_smallest(t_env *env)
+t_env	*sorted_list(t_env *env)
 {
-	t_env	*small;	
-	t_env	*prev;
+	t_env	*ptr;
+	char	*temp;
 
-	small = env;
-	while (env->next)
+	ptr = env;
+	while (ptr->next)
 	{
-		if (ft_strcmp(env->var, env->next->var) > 0)
+		if (ft_strcmp(ptr->var, ptr->next->var) > 0)
 		{
-			prev = env;
-			small = env->next;
+			temp = ptr->var;
+			ptr->var = ptr->next->var;
+			ptr->next->var = temp;
+			temp = ptr->value;
+			ptr->value = ptr->next->value;
+			ptr->next->value = temp;
+			ptr = env;
 		}
-		env = env->next;
-	}
-	printf("%s\n", small->var);
-	if (small->next)
-	{
-		if (prev)
-			prev->next = small->next;
 		else
-			env = small->next;
+			ptr = ptr->next;
 	}
-	else
-		prev->next = NULL;
-	free(small);
+	return (env);
 }
 
-void	print_in(void)
+void	print_export(void)
 {
 	t_env	*new;
-	int		i;
+	t_env	*ptr;
+	t_env	*temp;
 
-	i = 0;
 	new = clone_list();
-	while (i < 2)
-	{
-		find_smallest(new);
-		i++;
-	}
-	printf("\n\nnew\n\n");
+	new = sorted_list(new);
+	ptr = new;
 	while (new)
 	{
-		printf("%s\n", new->var);
+		if (new->value[0] == 0)
+			printf("declare -x %s\n", new->var);
+		else
+			printf("declare -x %s=\"%s\"\n", new->var, new->value);
 		new = new->next;
+	}
+	while (ptr)
+	{
+		temp = ptr;
+		ptr = ptr->next;
+		free(temp);
 	}
 }
 
-int	search_var(t_env *env, const char *var)
+void	free_2d_array(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+// search for var
+int	sv(t_env *env, const char *var)
 {
 	int	i;
 
 	i = 0;
 	while (env)
 	{
-		if (strncmp(env->var, var, strlen(var)) == 0)
+		if (ft_strncmp(env->var, var, ft_strlen(var)) == 0)
 			return (i);
 		env = env->next;
 		i++;

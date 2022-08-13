@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/13 02:01:15 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/13 03:19:22 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <libft.h>
 # include <limits.h>
 # include <fcntl.h>
-
 
 // enums
 enum e_type
@@ -128,11 +127,20 @@ int		get_expansion_len(char *var, int *i);
 // BUILTINS 
 t_env	*clone_list(void);
 void	find_smallest(t_env *env);
-void	print_in(void);
 int		check_naming(char *str, char *str2);
-int		search_var(t_env *env, const char *var);
+int		sv(t_env *env, const char *var);
 char	**split_arg(char *arg);
-void    pwd(void);
+void	pwd(void);
+void	env(void);
+void	print_export(void);
+void	export(t_env *env, char **args);
+void	free_2d_array(char **tab);
+void	echo(void);
+void	fill_env(void);
+void	print_2d(void);
+void    unset(void);
+void search_and_unset(char *str);
+void    cd(char **envp);
 
 
 //miscellaneous defines
