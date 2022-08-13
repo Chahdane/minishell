@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/13 03:23:44 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/13 21:30:19 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int		get_expansion_len(char *var, int *i);
 t_env	*clone_list(void);
 void	find_smallest(t_env *env);
 int		check_naming(char *str, char *str2);
-int		sv(t_env *env, const char *var);
+int		sv(t_env *env, char *var);
 char	**split_arg(char *arg);
 void	pwd(void);
 void	env(void);
@@ -141,6 +141,7 @@ void	print_2d(void);
 void	unset(void);
 void	search_and_unset(char *str);
 void	cd(char **envp);
+void    ft_exit(void);
 
 //miscellaneous defines
 # define PROMPT  "MINISHELL$> "

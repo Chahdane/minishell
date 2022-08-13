@@ -6,17 +6,11 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 17:13:07 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/12 23:50:48 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/13 20:27:00 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-void	del_head(t_env **head, t_env *temp)
-{
-	*head = (*head)->next;
-	free(temp);
-}
 
 int	check_unset_naming(char *str)
 {
@@ -42,31 +36,24 @@ int	check_unset_naming(char *str)
 	return (1);
 }
 
-void	delete_node(t_env **head, int pos, t_env *temp, t_env *prev)
+void	delete_node(t_env **head, t_env *env, t_env *prev)
 {
-	int	i;
+	t_env	*tmp;
 
-	i = -1;
-	while (i++ < pos)
+	if (prev == env)
 	{
-		if (i == 0 && pos == 1)
-			del_head(head, temp);
-		else
-		{
-			if (i == pos - 1 && temp)
-			{
-				prev->next = temp->next;
-				free(temp);
-			}
-			else
-			{
-				prev = temp;
-				if (prev == NULL)
-					break ;
-				temp = temp->next;
-			}
-		}
+		tmp = *head;
+		*head = (*head)->next;
+		free(tmp->var);
+		free(tmp->value);
+		free(tmp);
+		return ;
 	}
+	tmp = env;
+	prev->next = env->next;
+	free(tmp->var);
+	free(tmp->value);
+	free(tmp);
 }
 
 void	search_and_unset(char *str)
@@ -74,18 +61,19 @@ void	search_and_unset(char *str)
 	t_env	*env;
 	t_env	*temp;
 	t_env	*prev;
-	int		pos;
 
-	pos = 1;
 	env = g_data.env_lst;
 	temp = env;
 	prev = env;
 	while (env)
 	{
 		if (ft_strcmp(env->var, str) == 0)
-			delete_node(&g_data.env_lst, pos, temp, prev);
+		{
+			delete_node(&g_data.env_lst, env, prev);
+			break;
+		}
+		prev = env;
 		env = env->next;
-		pos++;
 	}
 }
 
@@ -95,7 +83,7 @@ void	unset(void)
 	char	**args;
 	int		i;
 
-	i = 0;
+	i = 1;
 	env = g_data.env_lst;
 	args = g_data.cmds->args;
 	while (args[i])

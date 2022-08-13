@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:07:40 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/12 18:59:37 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/13 20:27:46 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ void	env(void)
 	t_env	*ptr;
 
 	ptr = g_data.env_lst;
+
 	while (ptr)
 	{
-		if (ptr->value)
+		if (ptr->value[0] != 0)
 			printf("%s=%s\n", ptr->var, ptr->value);
 		ptr = ptr->next;
 	}
-	printf("list len =%d\n",list_len());
 }
