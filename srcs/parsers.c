@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:46:34 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/11 00:00:52 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/13 03:14:38 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_cmd	*create_new_cmd(void)
 	new = ft_malloc(1, sizeof(t_cmd), 0);
 	if (!new)
 		return (NULL);
-	new->cmd = NULL;
 	new->infiles = NULL;
 	new->outfiles = NULL;
 	new->heredoc_lst = NULL;
@@ -39,7 +38,6 @@ int	clear_cmds_lst(t_cmd *cmds)
 	while (cmds)
 	{
 		tmp = cmds->next;
-		free(cmds->cmd);
 		clear_names_lst(cmds->infiles);
 		clear_names_lst(cmds->outfiles);
 		clear_names_lst(cmds->heredoc_lst);
@@ -78,9 +76,7 @@ int	fill_in_cmds(t_token *token, t_cmd *new)
 	}
 	else if (token->type == OTHER)
 	{
-		if (!new->cmd)
-			new->cmd = ft_strdup(token->value);
-		else if (add_name(&new->args_lst, token))
+		if (add_name(&new->args_lst, token))
 			return (-1);
 	}
 	return (0);
@@ -118,13 +114,16 @@ void	print_cmds(void)
 {
 	t_cmd	*cmd;
 	t_name	*tmp;
+	char	*tmp_cmd = NULL;
 	int		i;
 
 	cmd = g_data.cmds;
 	printf("\n");
 	while (cmd)
 	{
-		printf("\e[0;31mCMD = (%s)\e[0;37m\n", cmd->cmd);
+		if (cmd->args)
+			tmp_cmd = (cmd->args)[0];
+		printf("\e[0;31mCMD = (%s)\e[0;37m\n", tmp_cmd);
 		tmp = cmd->infiles;
 		printf("\e[0;32mINFILES = \e[0;37m");
 		while (tmp)
@@ -189,6 +188,34 @@ void	print_cmds(void)
 	}
 }
 
+void	print_heredocs(void)
+{
+	t_cmd	*tmp;
+	char	*line;
+	int		i;
+
+	tmp = g_data.cmds;
+	i = 0;
+	printf("\n");
+	while (tmp)
+	{
+		if (tmp->heredoc == -1)
+		{
+			tmp = tmp->next;
+			continue ;
+		}
+		line = get_next_line(tmp->heredoc);
+		printf("heredoc number %i\n", i++);
+		while (line)
+		{
+			printf("%s", line);
+			line = get_next_line(tmp->heredoc);
+		}
+		printf("\n\n======================\n\n");
+		tmp = tmp->next;
+	}
+}
+
 int	parse_line(char *line)
 {
 	t_token	*tokens;
@@ -202,7 +229,8 @@ int	parse_line(char *line)
 		return (clear_token_lst(tokens) == NULL);
 	if (read_heredocs())
 		return (clear_token_lst(tokens) == NULL);
-	print_cmds();
+	//print_cmds();
+	//print_heredocs();
 	clear_token_lst(tokens);
 	return (0);
 }

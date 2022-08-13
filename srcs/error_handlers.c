@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:19:58 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/06 18:56:30 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/11 21:04:17 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 int	ft_perror(char *name, char *error, int freeable)
 {
-	printf("%s: ", name);
+	ft_putstr_fd(name, 2);
+	ft_putstr_fd(": ", 2);
 	if (!error)
 	{
 		perror(NULL);
 		return (-1);
 	}
-	printf("%s\n", error);
+	ft_putendl_fd(error, 2);
 	if (freeable)
 		free(error);
 	return (-1);

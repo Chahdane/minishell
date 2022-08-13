@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/11 00:04:17 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/13 02:01:15 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <libft.h>
-#include <limits.h> 
+# include <limits.h>
+# include <fcntl.h>
 
 
 // enums
@@ -56,7 +57,6 @@ typedef struct s_name
 
 typedef struct s_cmd
 {
-	char			*cmd;
 	t_name			*infiles;
 	t_name			*outfiles;
 	t_name			*heredoc_lst;
@@ -123,6 +123,7 @@ void	clear_names_lst(t_name *name_lst);
 int		clear_cmds_lst(t_cmd *cmds);
 int		args_lst_to_arr(t_cmd **cmd);
 int		read_heredocs(void);
+int		get_expansion_len(char *var, int *i);
 
 // BUILTINS 
 t_env	*clone_list(void);
