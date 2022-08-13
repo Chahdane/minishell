@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 19:51:05 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/13 23:58:16 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 00:19:34 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,24 @@ void	update_env_pwd(char *var, int len)
 	}
 }
 
-void	cd(char **envp)
+void	cd()
 {
 	char	**args;
-	char	*home_dir;
 	int		i;
+	char	*cwd;
 
-	home_dir = NULL;
 	i = 0;
-	update_env_pwd("OLDPWD", 6);
-	while (envp[i])
-	{
-		if (ft_strncmp("HOME=", envp[i], 5) == 0)
-		{
-			home_dir = envp[i] + 5;
-			break ;
-		}
-		i++;
-	}
-	// print error
+
+	cwd = NULL;
+	cwd = getcwd(cwd, PATH_MAX);
+
+	add_node(&g_data.env_lst, "OLDPWD", cwd);
+	free(cwd);
+	// print error + go home
 	args = g_data.cmds->args + 1;
-    if (*args == NULL)
-        chdir(home_dir);
-	else if (chdir(args[0]) != 0)
+	if (chdir(args[0]) != 0)
         printf("minishell: cd: %s: No such file or directory", args[0]);
     update_env_pwd("PWD", 3);
 }
+
+//add pipe flag;
