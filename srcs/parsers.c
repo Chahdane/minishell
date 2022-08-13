@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:46:34 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/13 03:18:22 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/13 16:01:01 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,7 @@ void	print_heredocs(void)
 		while (line)
 		{
 			printf("%s", line);
+			free(line);
 			line = get_next_line(tmp->heredoc);
 		}
 		printf("\n\n======================\n\n");
