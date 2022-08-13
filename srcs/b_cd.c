@@ -6,13 +6,13 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 19:51:05 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/13 03:13:36 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/13 23:58:16 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	update_env_pwd(void)
+void	update_env_pwd(char *var, int len)
 {
 	t_env	*env;
 	char	*pwd;
@@ -23,38 +23,40 @@ void	update_env_pwd(void)
 	env = g_data.env_lst;
 	while (env)
 	{
-		if (ft_strncmp(env->var, "PWD", 3) == 0)
+		if (ft_strncmp(env->var, var, len) == 0)
 		{
 			free(env->value);
 			env->value = ft_strdup(pwd);
 			free(pwd);
-			break;
+			break ;
 		}
 		env = env->next;
 	}
 }
 
-void    cd(char **envp)
+void	cd(char **envp)
 {
-    char	**args;
+	char	**args;
 	char	*home_dir;
 	int		i;
 
 	home_dir = NULL;
 	i = 0;
+	update_env_pwd("OLDPWD", 6);
 	while (envp[i])
 	{
-		if(ft_strncmp("HOME=",envp[i],5) == 0)
+		if (ft_strncmp("HOME=", envp[i], 5) == 0)
 		{
 			home_dir = envp[i] + 5;
-			break;
+			break ;
 		}
 		i++;
 	}
-	args = g_data.cmds->args;
-    if (args == NULL)
+	// print error
+	args = g_data.cmds->args + 1;
+    if (*args == NULL)
         chdir(home_dir);
 	else if (chdir(args[0]) != 0)
         printf("minishell: cd: %s: No such file or directory", args[0]);
-    update_env_pwd();
+    update_env_pwd("PWD", 3);
 }

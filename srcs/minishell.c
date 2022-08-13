@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/13 23:10:03 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/13 23:22:44 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	exec(char **envp)
 		pwd();
     if (ft_strcmp("env",cmd) == 0)
 		env();
+	if (ft_strcmp("exit",cmd) == 0)
+		ft_exit();
 }
 
 
