@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:46:34 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/11 00:00:52 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/13 00:04:18 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,9 +200,9 @@ int	parse_line(char *line)
 		return (clear_token_lst(tokens) == NULL);
 	if (transform_tokens(tokens))
 		return (clear_token_lst(tokens) == NULL);
-	if (read_heredocs())
-		return (clear_token_lst(tokens) == NULL);
-	print_cmds();
+	/*if (read_heredocs())
+		return (clear_token_lst(tokens) == NULL);*/
+	//print_cmds();
 	clear_token_lst(tokens);
 	return (0);
 }

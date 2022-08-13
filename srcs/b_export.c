@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:26:49 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/13 00:23:01 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/13 01:07:17 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ void	export(t_env *env, char **args)
 	fill_env();
 }
 
-
-/// export without value does no overwrite
-// echo with -p
+// TODO
+// export with -p
+// change oldpwd and pwd when cd
+// leak : unset
