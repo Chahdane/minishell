@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 19:51:05 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 16:26:28 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 17:15:23 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ void	go_home()
 			if (ft_strncmp("HOME", env->var, 5) == 0)
 			{
 				if (chdir(env->value) != 0)
+				{
         			printf("minishell: cd: %s: No such file or directory\n", env->value);
+					g_data.exit_code = 1;
+				}
 				break;
 			}
 			env = env->next;
@@ -74,10 +77,14 @@ void	cd()
 	else
 		replace_val(g_data.env_lst, sv(g_data.env_lst, "OLDPWD") -1, cwd, 0);
 	free(cwd);
+	g_data.exit_code = 0;
 	args = g_data.cmds->args + 1;
 	if (!*args)
 		go_home();
 	else if (chdir(args[0]) != 0)
+	{
         printf("minishell: cd: %s: No such file or directory\n", args[0]);
-    update_env_pwd("PWD", 3);
+		g_data.exit_code = 1;
+	}
+	update_env_pwd("PWD", 3);
 }

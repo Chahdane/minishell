@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:07:40 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/13 20:27:46 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 16:52:10 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	env(void)
 
 	ptr = g_data.env_lst;
 
+	g_data.exit_code = 0;
 	while (ptr)
 	{
 		if (ptr->value[0] != 0)

@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 20:34:24 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/13 23:44:22 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 17:29:36 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ int	check_args(char **args)
 {
 	if (!str_isdigit(args[0]))
 	{
-		printf("exit\nminishell: exit: %s: numeric argument required\n", args[0]);
-		return (0);
+		printf("minishell: exit: %s: numeric argument required\n", args[0]);
+		exit(255);
 	}
 	if (args[1])
 	{
-		printf("exit\nminishell: exit: too many arguments\n");
-		return (0);
+		printf("minishell: exit: too many arguments\n");
+		exit(1);
 	}
 	return (1);
 }
@@ -51,11 +51,7 @@ void	ft_exit(void)
 
 	args = g_data.cmds->args + 1;
 	if (!*args)
-	{
-		printf("exit\n");
 		exit(0);
-		return ;
-	}
 	if (check_args(args))
 		exit(ft_atoi(args[0]) % 256);
 }

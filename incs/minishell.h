@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/14 01:11:39 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 17:11:53 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ void    ft_exit(void);
 void	add_node(t_env **lst, char *var, char *value);
 void	replace_val(t_env *env, int index, char *new_value, int flag);
 int		sv(t_env *env, char *var);
+int		co(char *str);
+
 
 
 //miscellaneous defines

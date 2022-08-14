@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:26:49 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 16:33:05 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 17:17:22 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,28 +109,14 @@ int	check_naming(char *str, char *str2)
 	return (1);
 }
 
-//check_overwrite
-int co(char *str)
-{
-	while (*str)
-	{
-		if (*str == '=')
-			return (0);
-		str++;
-	}
-	return (1);
-}
-
 void	export(t_env *env, char **args)
 {
 	int		i;
 	char	**sp;
 
+	g_data.exit_code = 0;
 	if (!args[0])
-	{
-		print_export();
-		return ;
-	}
+		return(print_export());
 	i = 0;
 	while (args[i])
 	{
@@ -150,7 +136,3 @@ void	export(t_env *env, char **args)
 	fill_env();
 }
 
-// TODO
-// export with -p
-// long long exit
-// exec

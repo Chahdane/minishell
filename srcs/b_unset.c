@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 17:13:07 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/13 20:27:00 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 17:21:52 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	unset(void)
 
 	i = 1;
 	env = g_data.env_lst;
+	g_data.exit_code = 0;
 	args = g_data.cmds->args;
 	while (args[i])
 	{

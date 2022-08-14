@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 19:44:07 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/13 19:25:05 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 17:11:18 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,15 @@ void	print_export(void)
 	}
 }
 
-void	free_2d_array(char **tab)
+int co(char *str)
 {
-	int	i;
-
-	i = 0;
-	while (tab[i])
+	while (*str)
 	{
-		free(tab[i]);
-		i++;
+		if (*str == '=')
+			return (0);
+		str++;
 	}
-	free(tab);
+	return (1);
 }
 
 // search for var
