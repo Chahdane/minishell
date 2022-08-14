@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:26:49 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/13 20:32:09 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 16:33:05 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ int co(char *str)
 	return (1);
 }
 
-
 void	export(t_env *env, char **args)
 {
 	int		i;
@@ -136,12 +135,6 @@ void	export(t_env *env, char **args)
 	while (args[i])
 	{
 		sp = split_arg(args[i]);
-		int j = 0;
-		while (sp[j])
-		{
-			printf("%s\n",sp[j]);
-			j++;
-		}
 		if (check_naming(sp[0], sp[1]) == 1)
 		{
 			if (sp[2][0] == '-' && sv(env, sp[0]) > -1 && !co(args[i]))
@@ -159,5 +152,5 @@ void	export(t_env *env, char **args)
 
 // TODO
 // export with -p
-// change oldpwd and pwd when cd
-// leak : unset
+// long long exit
+// exec
