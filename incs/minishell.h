@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/14 18:57:32 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/15 00:42:43 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ int		clear_cmds_lst(t_cmd *cmds);
 int		args_lst_to_arr(t_cmd **cmd);
 int		read_heredocs(void);
 int		get_expansion_len(char *var, int *i);
-void	ft_execute(void);
 
 // BUILTINS 
 t_env	*clone_list(void);
@@ -145,13 +144,18 @@ void	print_2d(void);
 void	unset(t_cmd *cmd);
 void	search_and_unset(char *str);
 void	cd(t_cmd *cmd);
-void    ft_exit(t_cmd *cmd);
+void	ft_exit(t_cmd *cmd);
 void	add_node(t_env **lst, char *var, char *value);
 void	replace_val(t_env *env, int index, char *new_value, int flag);
 int		sv(t_env *env, char *var);
 int		co(char *str);
 
-
+// EXECUTION
+void	ft_execute(void);
+int		open_files(t_cmd *cmd);
+void	run_one_builtin(void);
+int		is_builtin(t_cmd *cmd);
+void	check_builtin(t_cmd *cmd);
 
 //miscellaneous defines
 # define PROMPT  "MINISHELL$> "

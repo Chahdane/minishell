@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 19:51:05 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 18:56:20 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 23:25:01 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	go_home()
 	env = g_data.env_lst;
 	if (sv(g_data.env_lst, "HOME") == -1)
 	{
-		printf("bash: cd: HOME not set\n");
+		printf("minishell: cd: HOME not set\n");
 		g_data.exit_code = 1;
 		return ;
 	}

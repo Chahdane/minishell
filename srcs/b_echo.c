@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:40:25 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 20:57:22 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/14 23:59:00 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,13 @@ void	print_echo(char	**args, int i, int new_line)
 		return ;
 	while (args[i])
 	{
-		printf("%s", args[i]);
+		ft_printf("%s", args[i]);
 		if (args[i + 1])
-			printf(" ");
+			ft_printf(" ");
 		i++;
 	}
 	if (new_line)
-		printf("\n");
-	else
-		printf("$\n");
+		ft_printf("\n");
 }
 
 void	echo(t_cmd *cmd)
@@ -56,7 +54,7 @@ void	echo(t_cmd *cmd)
 	args = cmd->args + 1;
 	if (!*args)
 	{
-		printf("\n");
+		ft_printf("\n");
 		return ;
 	}
 	g_data.exit_code = 0;
