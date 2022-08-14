@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/14 01:07:38 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 16:35:04 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int ac, char **av, char **envp)
 	{
 		ft_add_history(line);
 		if (!parse_line(line) && g_data.cmds)
-			exec();
+			ft_execute();
 		free(line);
 		clear_cmds_lst(g_data.cmds);
 		line = readline(PROMPT);

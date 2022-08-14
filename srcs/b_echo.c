@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:40:25 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 17:19:45 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 18:08:33 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	echo(void)
 	int		new_line;
 
 	args = g_data.cmds->args;
-	g_data.exit_code = 0;
 	i = 0;
 	new_line = 1;
 	if (!args)
