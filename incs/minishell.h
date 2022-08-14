@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/14 17:11:53 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 18:57:32 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,13 +139,13 @@ void	env(void);
 void	print_export(void);
 void	export(t_env *env, char **args);
 void	free_2d_array(char **tab);
-void	echo(void);
+void	echo(t_cmd *cmd);
 void	fill_env(void);
 void	print_2d(void);
-void	unset(void);
+void	unset(t_cmd *cmd);
 void	search_and_unset(char *str);
-void	cd();
-void    ft_exit(void);
+void	cd(t_cmd *cmd);
+void    ft_exit(t_cmd *cmd);
 void	add_node(t_env **lst, char *var, char *value);
 void	replace_val(t_env *env, int index, char *new_value, int flag);
 int		sv(t_env *env, char *var);

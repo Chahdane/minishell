@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 17:13:07 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 17:21:52 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 18:39:14 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,21 +77,23 @@ void	search_and_unset(char *str)
 	}
 }
 
-void	unset(void)
+void	unset(t_cmd	*cmd)
 {
 	t_env	*env;
 	char	**args;
 	int		i;
 
-	i = 1;
+	i = 0;
 	env = g_data.env_lst;
 	g_data.exit_code = 0;
-	args = g_data.cmds->args;
+	args = cmd->args + 1;
+	if (!*args)
+		return ;
 	while (args[i])
 	{
 		if (check_unset_naming(args[i]) == 1)
 			search_and_unset(args[i]);
 		i++;
 	}
-	//fill_env();
+	fill_env();
 }

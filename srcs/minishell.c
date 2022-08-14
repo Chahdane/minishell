@@ -6,33 +6,45 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/14 16:35:04 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/14 20:56:27 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	exec(void)
+void	exec(t_cmd *cmd)
 {
-	char *cmd;
+	char *cmnd;
 
-	cmd = g_data.cmds->args[0];
-	if (ft_strcmp("cd",cmd) == 0)
-		cd();
-	if (ft_strcmp("export",cmd) == 0)
-		export(g_data.env_lst, (g_data.cmds->args) + 1);
-	if (ft_strcmp("unset",cmd) == 0)
-		unset();
-	if (ft_strcmp("echo",cmd) == 0)
-		echo();
-	if (ft_strcmp("pwd",cmd) == 0)
+	cmnd = cmd->cmd;
+
+	if (ft_strcmp("cd",cmnd) == 0)
+		cd(cmd);
+	if (ft_strcmp("export",cmnd) == 0)
+		export(g_data.env_lst, cmd->args + 1);
+	if (ft_strcmp("unset",cmnd) == 0)
+		unset(cmd);
+	if (ft_strcmp("echo",cmnd) == 0)
+		echo(cmd);
+	if (ft_strcmp("pwd",cmnd) == 0)
 		pwd();
-    if (ft_strcmp("env",cmd) == 0)
+    if (ft_strcmp("env",cmnd) == 0)
 		env();
-	if (ft_strcmp("exit",cmd) == 0)
-		ft_exit();
+	if (ft_strcmp("exit",cmnd) == 0)
+		ft_exit(cmd);
 }
 
+void test_cmds()
+{
+	t_cmd *cmd;
+
+	cmd = g_data.cmds;
+	while (cmd)
+	{
+		exec(cmd);
+		cmd = cmd->next;
+	}
+}
 
 int	main(int ac, char **av, char **envp)
 {

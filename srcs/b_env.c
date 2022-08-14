@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:07:40 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 16:52:10 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 18:39:25 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,5 @@ void	env(void)
 			printf("%s=%s\n", ptr->var, ptr->value);
 		ptr = ptr->next;
 	}
+	//printf("%d\n", list_len());
 }

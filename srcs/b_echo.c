@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 15:40:25 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 18:08:33 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/14 20:57:22 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,21 @@ void	print_echo(char	**args, int i, int new_line)
 		printf("$\n");
 }
 
-void	echo(void)
+void	echo(t_cmd *cmd)
 {
 	char	**args;
 	int		i;
 	int		new_line;
 
-	args = g_data.cmds->args;
+	args = cmd->args + 1;
+	if (!*args)
+	{
+		printf("\n");
+		return ;
+	}
+	g_data.exit_code = 0;
 	i = 0;
 	new_line = 1;
-	if (!args)
-		return ;
 	while (args[i])
 	{
 		if (is_valid_flag(args[i]) == 1)
