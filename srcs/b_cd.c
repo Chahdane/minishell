@@ -6,13 +6,13 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 19:51:05 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/13 03:13:36 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 00:19:34 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	update_env_pwd(void)
+void	update_env_pwd(char *var, int len)
 {
 	t_env	*env;
 	char	*pwd;
@@ -23,38 +23,35 @@ void	update_env_pwd(void)
 	env = g_data.env_lst;
 	while (env)
 	{
-		if (ft_strncmp(env->var, "PWD", 3) == 0)
+		if (ft_strncmp(env->var, var, len) == 0)
 		{
 			free(env->value);
 			env->value = ft_strdup(pwd);
 			free(pwd);
-			break;
+			break ;
 		}
 		env = env->next;
 	}
 }
 
-void    cd(char **envp)
+void	cd()
 {
-    char	**args;
-	char	*home_dir;
+	char	**args;
 	int		i;
+	char	*cwd;
 
-	home_dir = NULL;
 	i = 0;
-	while (envp[i])
-	{
-		if(ft_strncmp("HOME=",envp[i],5) == 0)
-		{
-			home_dir = envp[i] + 5;
-			break;
-		}
-		i++;
-	}
-	args = g_data.cmds->args;
-    if (args == NULL)
-        chdir(home_dir);
-	else if (chdir(args[0]) != 0)
+
+	cwd = NULL;
+	cwd = getcwd(cwd, PATH_MAX);
+
+	add_node(&g_data.env_lst, "OLDPWD", cwd);
+	free(cwd);
+	// print error + go home
+	args = g_data.cmds->args + 1;
+	if (chdir(args[0]) != 0)
         printf("minishell: cd: %s: No such file or directory", args[0]);
-    update_env_pwd();
+    update_env_pwd("PWD", 3);
 }
+
+//add pipe flag;

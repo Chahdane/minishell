@@ -6,19 +6,19 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/14 01:02:28 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/14 01:04:29 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	exec(char **envp)
+void	exec()
 {
 	char *cmd;
 
 	cmd = g_data.cmds->args[0];
 	if (ft_strcmp("cd",cmd) == 0)
-		cd(envp);
+		cd();
 	if (ft_strcmp("export",cmd) == 0)
 		export(g_data.env_lst, (g_data.cmds->args) + 1);
 	if (ft_strcmp("unset",cmd) == 0)
@@ -29,6 +29,8 @@ void	exec(char **envp)
 		pwd();
     if (ft_strcmp("env",cmd) == 0)
 		env();
+	if (ft_strcmp("exit",cmd) == 0)
+		ft_exit();
 }
 
 

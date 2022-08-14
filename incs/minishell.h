@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/13 23:55:23 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/14 01:05:54 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,10 @@ void	fill_env(void);
 void	print_2d(void);
 void	unset(void);
 void	search_and_unset(char *str);
-void	cd(char **envp);
+void	cd();
 void    ft_exit(void);
+void	add_node(t_env **lst, char *var, char *value);
+
 
 //miscellaneous defines
 # define PROMPT  "MINISHELL$> "
