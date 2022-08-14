@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:26:49 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 17:17:22 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 18:16:01 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	export(t_env *env, char **args)
 	char	**sp;
 
 	g_data.exit_code = 0;
-	if (!args[0])
+	if (!*args)
 		return(print_export());
 	i = 0;
 	while (args[i])

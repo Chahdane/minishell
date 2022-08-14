@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 20:34:24 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 17:29:36 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 18:30:26 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,22 @@
 int	str_isdigit(char *str)
 {
 	int	i;
+	int	flag;
 
+	flag = 0;
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
+	{
+		flag = 1;
 		i++;
+	}
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
 			return (0);
 		i++;
 	}
-	if (i == 1)
+	if (flag == 1 && i == 1)
 		return (0);
 	return (1);
 }
@@ -45,11 +50,11 @@ int	check_args(char **args)
 	return (1);
 }
 
-void	ft_exit(void)
+void	ft_exit(t_cmd *cmd)
 {
 	char	**args;
 
-	args = g_data.cmds->args + 1;
+	args = cmd->args + 1;
 	if (!*args)
 		exit(0);
 	if (check_args(args))

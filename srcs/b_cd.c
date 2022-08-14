@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 19:51:05 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 17:15:23 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 18:56:20 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	update_env_pwd(char *var, int len)
 		{
 			free(env->value);
 			env->value = ft_strdup(pwd);
-			free(pwd);
 			break ;
 		}
 		env = env->next;
 	}
+	free(pwd);
 }
 
 void	go_home()
@@ -63,7 +63,7 @@ void	go_home()
 	}
 }
 
-void	cd()
+void	cd(t_cmd *cmd)
 {
 	char	**args;
 	int		i;
@@ -78,7 +78,7 @@ void	cd()
 		replace_val(g_data.env_lst, sv(g_data.env_lst, "OLDPWD") -1, cwd, 0);
 	free(cwd);
 	g_data.exit_code = 0;
-	args = g_data.cmds->args + 1;
+	args = cmd->args + 1;
 	if (!*args)
 		go_home();
 	else if (chdir(args[0]) != 0)
