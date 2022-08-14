@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:46:34 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/13 23:48:48 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/14 00:01:39 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_cmd	*create_new_cmd(void)
 		return (NULL);
 	new->cmd = NULL;
 	new->files = NULL;
+	new->out_file = -1;
+	new->in_file = -1;
 	new->heredoc_lst = NULL;
 	new->heredoc_path = NULL;
 	new->heredoc = -1;
@@ -47,6 +49,10 @@ int	clear_cmds_lst(t_cmd *cmds)
 		free(cmds->args);
 		if (cmds->heredoc > 0)
 			close(cmds->heredoc);
+		if (cmds->out_file > 0)
+			close(cmds->out_file);
+		if (cmds->in_file)
+			close(cmds->in_file);
 		free(cmds);
 		cmds = tmp;
 	}

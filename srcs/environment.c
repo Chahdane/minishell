@@ -6,11 +6,23 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:57:24 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/02 16:39:07 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/14 00:56:37 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	check_if_allocate(t_env **tmp)
+{
+	static int	i;
+
+	if (i)
+	{
+		(*tmp)->next = ft_malloc(1, sizeof(t_env), 1);
+		*tmp = (*tmp)->next;
+	}
+	i = 1;
+}
 
 void	init_env_lst(char **env)
 {
@@ -26,16 +38,15 @@ void	init_env_lst(char **env)
 	tmp = g_data.env_lst;
 	while (i[0] < i[1])
 	{
-		if (i[0])
-		{
-			tmp->next = ft_malloc(1, sizeof(t_env), 1);
-			tmp = tmp->next;
-		}
 		strs = ft_split(env[i[0]++], '=');
+		if (!ft_strcmp(strs[0], "OLDPWD"))
+		{
+			free(strs);
+			continue ;
+		}
+		check_if_allocate(&tmp);
 		tmp->var = strs[0];
 		tmp->value = strs[1];
-		if (!tmp->value)
-			tmp->value = ft_strdup("");
 		free(strs);
 	}
 	tmp->next = NULL;

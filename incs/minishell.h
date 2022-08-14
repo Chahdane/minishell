@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/13 23:52:46 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/13 23:55:23 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_cmd
 {
 	char			*cmd;
 	t_name			*files;
+	int				out_file;
+	int				in_file;
 	t_name			*heredoc_lst;
 	char			*heredoc_path;
 	int				heredoc;
