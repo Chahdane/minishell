@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 19:51:05 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 00:19:34 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 01:16:46 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ void	cd()
 	cwd = NULL;
 	cwd = getcwd(cwd, PATH_MAX);
 
-	add_node(&g_data.env_lst, "OLDPWD", cwd);
+	if (sv(g_data.env_lst, "OLDPWD") == -1)
+		add_node(&g_data.env_lst, "OLDPWD", cwd);
+	else
+		replace_val(g_data.env_lst, sv(g_data.env_lst, "OLDPWD") -1, cwd, 0);
 	free(cwd);
 	// print error + go home
 	args = g_data.cmds->args + 1;
