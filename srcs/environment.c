@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:57:24 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/14 16:35:20 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/15 20:20:34 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ void	init_env_lst(char **env)
 	while (i[0] < i[1])
 	{
 		strs = ft_split(env[i[0]++], '=');
-		if (!ft_strcmp(strs[0], "OLDPWD"))
-		{
-			free_2d_array(strs);
-			continue ;
-		}
 		check_if_allocate(&tmp);
 		tmp->var = strs[0];
+		if (!ft_strcmp(strs[0], "OLDPWD"))
+		{
+			tmp->value = ft_strdup("");
+			continue;
+		}
 		tmp->value = strs[1];
 		free(strs);
 	}

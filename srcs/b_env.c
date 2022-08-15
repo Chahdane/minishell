@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:07:40 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/15 18:59:21 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/15 19:10:03 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	env(void)
 	t_env	*ptr;
 
 	ptr = g_data.env_lst;
-
 	g_data.exit_code = 0;
 	if (sv(ptr, "PATH") == -1)
 	{

@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 19:51:05 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 23:25:01 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/15 19:09:41 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	update_env_pwd(char *var, int len)
 	free(pwd);
 }
 
-void	go_home()
+void	go_home(void)
 {
 	t_env	*env;
 
@@ -47,16 +47,16 @@ void	go_home()
 	}
 	else
 	{
-		while(env)
+		while (env)
 		{
 			if (ft_strncmp("HOME", env->var, 5) == 0)
 			{
 				if (chdir(env->value) != 0)
 				{
-        			printf("minishell: cd: %s: No such file or directory\n", env->value);
+					printf("minishell: cd: %s: No such file or directory\n", env->value);
 					g_data.exit_code = 1;
 				}
-				break;
+				break ;
 			}
 			env = env->next;
 		}
@@ -75,7 +75,7 @@ void	cd(t_cmd *cmd)
 	if (sv(g_data.env_lst, "OLDPWD") == -1)
 		add_node(&g_data.env_lst, "OLDPWD", cwd);
 	else
-		replace_val(g_data.env_lst, sv(g_data.env_lst, "OLDPWD") -1, cwd, 0);
+		replace_val(g_data.env_lst, sv(g_data.env_lst, "OLDPWD") - 1, cwd, 0);
 	free(cwd);
 	g_data.exit_code = 0;
 	args = cmd->args + 1;
@@ -83,7 +83,7 @@ void	cd(t_cmd *cmd)
 		go_home();
 	else if (chdir(args[0]) != 0)
 	{
-        printf("minishell: cd: %s: No such file or directory\n", args[0]);
+		printf("minishell: cd: %s: No such file or directory\n", args[0]);
 		g_data.exit_code = 1;
 	}
 	update_env_pwd("PWD", 3);
