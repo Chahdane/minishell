@@ -6,13 +6,13 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:26:20 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/15 01:15:29 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/15 22:39:01 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	ft_open(t_cmd *cmd, t_name *files, int flags)
+int	ft_open(t_cmd *cmd, t_name *files, int flags, char *error)
 {
 	if (files->f_mode == NEW || files->f_mode == APP)
 	{
@@ -25,7 +25,7 @@ int	ft_open(t_cmd *cmd, t_name *files, int flags)
 		if (cmd->out_file < 0)
 		{
 			g_data.exit_code = 1;
-			return (ft_perror("minishell", NULL, 0));
+			return (ft_perror(error, NULL, 0));
 		}
 	}
 	if (files->f_mode == IN)
@@ -35,7 +35,7 @@ int	ft_open(t_cmd *cmd, t_name *files, int flags)
 		if (cmd->in_file < 0)
 		{
 			g_data.exit_code = 1;
-			return (ft_perror("minishell", NULL, 0));
+			return (ft_perror(error, NULL, 0));
 		}
 	}
 	return (0);
@@ -45,14 +45,20 @@ int	open_files(t_cmd *cmd)
 {
 	t_name	*files;
 	int		flags;
+	char	*error;
 
 	files = cmd->files;
 	g_data.exit_code = 0;
 	flags = O_CREAT | O_WRONLY;
 	while (files)
 	{
-		if (ft_open(cmd, files, flags))
+		error = ft_strjoin("minishell: ", files->name);
+		if (ft_open(cmd, files, flags, error))
+		{
+			free(error);
 			return (-1);
+		}
+		free(error);
 		files = files->next;
 	}
 	return (0);

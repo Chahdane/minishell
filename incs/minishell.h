@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/15 00:42:43 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/16 00:36:45 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <libft.h>
 # include <limits.h>
 # include <fcntl.h>
+# include <sys/wait.h>
 
 // enums
 enum e_type
@@ -151,11 +152,11 @@ int		sv(t_env *env, char *var);
 int		co(char *str);
 
 // EXECUTION
-void	ft_execute(void);
 int		open_files(t_cmd *cmd);
 void	run_one_builtin(void);
+void	ft_execute(t_cmd *cmds);
 int		is_builtin(t_cmd *cmd);
-void	check_builtin(t_cmd *cmd);
+void	exec_builtin(t_cmd *cmd);
 
 //miscellaneous defines
 # define PROMPT  "MINISHELL$> "

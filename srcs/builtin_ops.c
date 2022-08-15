@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 23:13:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/15 00:45:04 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/16 00:15:24 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,44 @@
 
 int	is_builtin(t_cmd *cmd)
 {
-	if (ft_strcmp("cd", cmd->cmd) == 0)
+	if (ft_strcmp("cd", cmd->cmd) == 0
+		|| !ft_strcmp("CD", cmd->cmd))
 		return (1);
 	if (ft_strcmp("export", cmd->cmd) == 0)
 		return (1);
 	if (ft_strcmp("unset", cmd->cmd) == 0)
 		return (1);
-	if (ft_strcmp("echo", cmd->cmd) == 0)
+	if (ft_strcmp("echo", cmd->cmd) == 0
+		|| !ft_strcmp("ECHO", cmd->cmd))
 		return (1);
-	if (ft_strcmp("pwd", cmd->cmd) == 0)
+	if (ft_strcmp("pwd", cmd->cmd) == 0
+		|| !ft_strcmp("PWD", cmd->cmd))
 		return (1);
-	if (ft_strcmp("env", cmd->cmd) == 0)
+	if (ft_strcmp("env", cmd->cmd) == 0
+		|| !ft_strcmp("ENV", cmd->cmd))
 		return (1);
 	if (ft_strcmp("exit", cmd->cmd) == 0)
 		return (1);
 	return (0);
 }
 
-void	check_builtin(t_cmd *cmd)
+void	exec_builtin(t_cmd *cmd)
 {
-	if (ft_strcmp("cd", cmd->cmd) == 0)
+	if (ft_strcmp("cd", cmd->cmd) == 0
+		|| !ft_strcmp("CD", cmd->cmd))
 		cd(cmd);
 	if (ft_strcmp("export", cmd->cmd) == 0)
 		export(g_data.env_lst, cmd->args + 1);
 	if (ft_strcmp("unset", cmd->cmd) == 0)
 		unset(cmd);
-	if (ft_strcmp("echo", cmd->cmd) == 0)
+	if (ft_strcmp("echo", cmd->cmd) == 0
+		|| !ft_strcmp("ECHO", cmd->cmd))
 		echo(cmd);
-	if (ft_strcmp("pwd", cmd->cmd) == 0)
+	if (ft_strcmp("pwd", cmd->cmd) == 0
+		|| !ft_strcmp("PWD", cmd->cmd))
 		pwd();
-	if (ft_strcmp("env", cmd->cmd) == 0)
+	if (ft_strcmp("env", cmd->cmd) == 0
+		|| !ft_strcmp("ENV", cmd->cmd))
 		env();
 	if (ft_strcmp("exit", cmd->cmd) == 0)
 		ft_exit(cmd);
@@ -66,7 +74,7 @@ void	run_one_builtin(void)
 			return ;
 	if (ft_strcmp("exit", g_data.cmds->cmd) == 0)
 		ft_putendl_fd("exit", 2);
-	check_builtin(g_data.cmds);
+	exec_builtin(g_data.cmds);
 	dup2(stdout_fd, 1);
 	close(stdout_fd);
 }
