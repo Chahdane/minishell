@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 21:30:51 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/16 00:38:24 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/16 00:53:50 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	handle_streams(t_cmd *cmd, int last_in, int pipes[2])
 void	forked_process(t_cmd *cmd, int last_in, int pipes[2])
 {
 	if (handle_streams(cmd, last_in, pipes))
-		return ;
+		exit(g_data.exit_code);
 	if (is_builtin(cmd))
 	{
 		exec_builtin(cmd);
@@ -48,7 +48,6 @@ void	forked_process(t_cmd *cmd, int last_in, int pipes[2])
 	}
 	close(1);
 	close(0);
-	exit(1);
 }
 
 void	ft_execute(t_cmd *cmd)
