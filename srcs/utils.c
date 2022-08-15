@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 22:31:10 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/14 17:10:46 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 20:51:07 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	ft_strcmp(char *s1, char *s2)
 	}
 	return (*s1 - *s2);
 }
-
 
 void	free_2d_array(char **tab)
 {

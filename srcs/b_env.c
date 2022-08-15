@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:07:40 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 18:39:25 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/15 18:59:21 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,16 @@ void	env(void)
 	ptr = g_data.env_lst;
 
 	g_data.exit_code = 0;
+	if (sv(ptr, "PATH") == -1)
+	{
+		printf("minishell: env: No such file or directory\n");
+		g_data.exit_code = 127;
+		return ;
+	}
 	while (ptr)
 	{
 		if (ptr->value[0] != 0)
 			printf("%s=%s\n", ptr->var, ptr->value);
 		ptr = ptr->next;
 	}
-	//printf("%d\n", list_len());
 }

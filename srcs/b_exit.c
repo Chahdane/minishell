@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 20:34:24 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 18:30:26 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/15 18:42:46 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	check_args(char **args)
 	if (args[1])
 	{
 		printf("minishell: exit: too many arguments\n");
-		exit(1);
+		g_data.exit_code = 1;
 	}
 	return (1);
 }

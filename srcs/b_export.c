@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:26:49 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 18:16:01 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/14 20:45:09 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,4 +135,3 @@ void	export(t_env *env, char **args)
 	}
 	fill_env();
 }
-
