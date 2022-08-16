@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 17:14:50 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/13 03:11:31 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:38:56 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	write_heredoc_2_file(t_cmd *cmd)
 		remove_quotes(heredoc_lst->name);
 		close(cmd->heredoc);
 		cmd->heredoc = open(cmd->heredoc_path,
-				O_CREAT | O_RDWR | O_TRUNC | O_APPEND, 0777);
+				O_CREAT | O_RDWR | O_TRUNC | O_APPEND, 0644);
 		if (cmd->heredoc == -1)
 			return (-1);
 		if (write_2_fd(cmd->heredoc, heredoc_lst->name, is_expand))
@@ -96,7 +96,7 @@ int	write_heredoc_2_file(t_cmd *cmd)
 		heredoc_lst = heredoc_lst->next;
 	}
 	close(cmd->heredoc);
-	cmd->heredoc = open(cmd->heredoc_path, O_RDONLY, 0777);
+	cmd->heredoc = open(cmd->heredoc_path, O_RDONLY, 0644);
 	if (cmd->heredoc == -1)
 		return (-1);
 	return (0);
@@ -110,18 +110,21 @@ int	read_heredocs(void)
 
 	tmp = g_data.cmds;
 	i = 0;
-	while (tmp && tmp->heredoc_lst)
+	while (tmp)
 	{
-		index = ft_itoa(i++);
-		if (!index)
-			return (ft_perror("minishell", NULL, 0));
-		tmp->heredoc_path = ft_strjoin("/tmp/heredoc_", index);
-		if (!tmp->heredoc_path)
-			return (ft_perror("minishell", NULL, 0));
-		free(index);
-		unlink(tmp->heredoc_path);
-		if (write_heredoc_2_file(tmp))
-			return (ft_perror("minishell", NULL, 0));
+		if (tmp->heredoc_lst)
+		{
+			index = ft_itoa(i++);
+			if (!index)
+				return (ft_perror("minishell", NULL, 0));
+			tmp->heredoc_path = ft_strjoin("/tmp/heredoc_", index);
+			if (!tmp->heredoc_path)
+				return (ft_perror("minishell", NULL, 0));
+			free(index);
+			unlink(tmp->heredoc_path);
+			if (write_heredoc_2_file(tmp))
+				return (ft_perror("minishell", NULL, 0));
+		}
 		tmp = tmp->next;
 	}
 	return (0);
