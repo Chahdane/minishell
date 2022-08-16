@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 21:30:51 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/16 17:19:07 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/16 22:24:14 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,13 @@ void	forked_process(t_cmd *cmd, int last_in, int pipes[2])
 	{
 		exec_builtin(cmd);
 		exit(g_data.exit_code);
+	}
+	if (ft_strchr(cmd->cmd, '/'))
+	{
+		if (execve(cmd->cmd, cmd->args, g_data.env))
+		{
+			exit(ft_perror(ft_strjoin("minishell: ", cmd->cmd), NULL, 0) + 128);
+		}
 	}
 	exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 16:57:24 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/15 22:43:23 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/16 21:33:01 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,5 @@ void	init_env_lst(char **env)
 		free(strs);
 	}
 	tmp->next = NULL;
+	fill_env();
 }
