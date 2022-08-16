@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:46:34 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/14 20:06:06 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:16:44 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	transform_tokens(t_token *tokens)
 	return (0);
 }
 
-/*void	print_cmds(void)
+void	print_cmds(void)
 {
 	t_cmd	*cmd;
 	t_name	*tmp;
@@ -131,7 +131,7 @@ int	transform_tokens(t_token *tokens)
 		if (cmd->args)
 			tmp_cmd = (cmd->args)[0];
 		printf("\e[0;31mCMD = (%s)\e[0;37m\n", tmp_cmd);
-		tmp = cmd->infiles;
+		/*tmp = cmd->infiles;
 		printf("\e[0;32mINFILES = \e[0;37m");
 		while (tmp)
 		{
@@ -151,7 +151,7 @@ int	transform_tokens(t_token *tokens)
 			if (tmp)
 				printf(", ");
 		}
-		printf("\n");
+		printf("\n");*/
 		tmp = cmd->heredoc_lst;
 		printf("\e[0;34mHEREDOCS = \e[0;37m");
 		while (tmp)
@@ -193,7 +193,7 @@ int	transform_tokens(t_token *tokens)
 		else
 			printf("\n");
 	}
-}*/
+}
 
 void	print_heredocs(void)
 {

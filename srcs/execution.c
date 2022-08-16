@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 21:30:51 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/16 00:53:50 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/16 17:19:07 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 int	handle_streams(t_cmd *cmd, int last_in, int pipes[2])
 {
 	close(pipes[0]);
-	if (open_files(cmd))
-		return (close(pipes[1]) == 0);
 	if (cmd->input_source == STDIN)
 	{
 		dup2(last_in, 0);
@@ -46,38 +44,51 @@ void	forked_process(t_cmd *cmd, int last_in, int pipes[2])
 		exec_builtin(cmd);
 		exit(g_data.exit_code);
 	}
-	close(1);
-	close(0);
+	exit(1);
 }
 
-void	ft_execute(t_cmd *cmd)
+int	ft_fork(t_cmd *cmd, int *pid)
 {
-	int		pid;
 	int		pipes[2];
 	int		last_in;
-	int		r_status;
 
-	if (is_builtin(cmd) && !cmd->next)
-		return (run_one_builtin());
 	last_in = 0;
 	while (cmd)
 	{
-		if (pipe(pipes) == -1)
+		if (!open_files(cmd))
 		{
-			ft_perror("minishell", NULL, 0);
-			return ;
+			if (pipe(pipes) == -1)
+				return (ft_perror("minishell", NULL, 0));
+			*pid = fork();
+			if (*pid == 0)
+				forked_process(cmd, last_in, pipes);
+			else if (*pid < 0)
+				return (ft_perror("minishell", NULL, 0));
+			close(pipes[1]);
+			if (last_in != 0)
+				close(last_in);
+			last_in = pipes[0];
 		}
-		pid = fork();
-		if (pid == 0)
-			forked_process(cmd, last_in, pipes);
-		else if (pid < 0)
-			exit(ft_perror("minishell", NULL, 0));
-		close(pipes[1]);
-		last_in = pipes[0];
 		cmd = cmd->next;
 	}
+	close(last_in);
+	return (0);
+}
+
+int	ft_execute(t_cmd *cmd)
+{
+	int		pid;
+	int		r_status;
+
+	if (is_builtin(cmd) && !cmd->next)
+	{
+		run_one_builtin();
+		return (0);
+	}
+	ft_fork(cmd, &pid);
 	waitpid(pid, &r_status, 0);
 	g_data.exit_code = WEXITSTATUS(r_status);
 	while (wait(NULL) > -1)
 		;
+	return (0);
 }

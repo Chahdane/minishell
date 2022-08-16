@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/16 00:36:45 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/16 17:09:12 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ int		co(char *str);
 // EXECUTION
 int		open_files(t_cmd *cmd);
 void	run_one_builtin(void);
-void	ft_execute(t_cmd *cmds);
+int		ft_execute(t_cmd *cmd);
 int		is_builtin(t_cmd *cmd);
 void	exec_builtin(t_cmd *cmd);
 
