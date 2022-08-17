@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:26:49 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 20:45:09 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/17 01:49:43 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ void	add_node(t_env **lst, char *var, char *value)
 
 void	replace_val(t_env *env, int index, char *new_value, int flag)
 {
-	int	i;
+	int		i;
 	char	*temp;
+
 	i = -1;
 	temp = NULL;
 	while (i++ < index && env->next)
@@ -116,7 +117,7 @@ void	export(t_env *env, char **args)
 
 	g_data.exit_code = 0;
 	if (!*args)
-		return(print_export());
+		return (print_export());
 	i = 0;
 	while (args[i])
 	{

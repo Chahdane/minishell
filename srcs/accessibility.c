@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:34:49 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/16 22:57:14 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/17 01:42:44 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ char	*check_path(char *cmd, t_env *env)
 	paths = ft_split(env->value, ':');
 	while (*paths)
 	{
-		temp = ft_strjoin(*paths, '/');
-		path_env = ft_strjoin(path_env, cmd);
+		temp = ft_strjoin(*paths, "/");
+		path_env = ft_strjoin(temp, cmd);
 		free(temp);
 		if (access(path_env, F_OK) == 0)
 			return (path_env);

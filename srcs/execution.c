@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 21:30:51 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/16 22:24:14 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/17 01:59:08 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,14 @@ void	forked_process(t_cmd *cmd, int last_in, int pipes[2])
 	{
 		if (execve(cmd->cmd, cmd->args, g_data.env))
 		{
-			exit(ft_perror(ft_strjoin("minishell: ", cmd->cmd), NULL, 0) + 128);
+			exit(ft_perror(ft_strjoin("minishell: ", cmd->cmd), NULL, 0) + 128); // exit code = 127
 		}
+	}
+	else
+	{
+		if (execve(check_path(cmd->cmd, g_data.env_lst), cmd->args, g_data.env))
+			exit(ft_perror(ft_strjoin("minishell: ", cmd->cmd), NULL, 0) + 128); // exit code = 127 
+		// need to change the error msg
 	}
 	exit(1);
 }

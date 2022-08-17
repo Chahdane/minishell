@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 17:13:07 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 18:39:14 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/17 01:51:15 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	search_and_unset(char *str)
 		if (ft_strcmp(env->var, str) == 0)
 		{
 			delete_node(&g_data.env_lst, env, prev);
-			break;
+			break ;
 		}
 		prev = env;
 		env = env->next;

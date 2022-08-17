@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 19:44:07 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/14 17:11:18 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/17 01:50:20 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	print_export(void)
 	}
 }
 
-int co(char *str)
+int	co(char *str)
 {
 	while (*str)
 	{

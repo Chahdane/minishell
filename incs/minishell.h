@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/16 17:09:12 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/16 23:16:28 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ void	run_one_builtin(void);
 int		ft_execute(t_cmd *cmd);
 int		is_builtin(t_cmd *cmd);
 void	exec_builtin(t_cmd *cmd);
+char	*check_path(char *cmd, t_env *env);
 
 //miscellaneous defines
 # define PROMPT  "MINISHELL$> "
