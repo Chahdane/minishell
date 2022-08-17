@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 21:30:51 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/17 18:38:19 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/17 22:15:49 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	ft_fork(t_cmd *cmd, int *pid, int last_in)
 	{
 		if (pipe(pipes) == -1)
 			return (ft_perror("minishell", NULL, 0));
-		close(pipes[1]);
 		if (!open_files(cmd))
 		{
 			g_data.exit_code = -1;
@@ -88,6 +87,7 @@ int	ft_fork(t_cmd *cmd, int *pid, int last_in)
 			else if (*pid < 0)
 				return (ft_perror("minishell", NULL, 0));
 		}
+		close(pipes[1]);
 		if (last_in != 0)
 			close(last_in);
 		last_in = pipes[0];
