@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:34:49 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/17 01:42:44 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:43:54 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*check_path(char *cmd, t_env *env)
 			break ;
 		env = env->next;
 	}
-	if (env == NULL || env->value == NULL)
+	if (!*cmd || env == NULL || env->value == NULL)
 		return (NULL);
 	paths = ft_split(env->value, ':');
 	while (*paths)

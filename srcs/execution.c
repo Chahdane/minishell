@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 21:30:51 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/17 01:59:08 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:38:19 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	handle_streams(t_cmd *cmd, int last_in, int pipes[2])
 	if (cmd->input_source == STDIN)
 	{
 		dup2(last_in, 0);
-		close(last_in);
+		if (last_in != 0)
+			close(last_in);
 	}
 	else if (cmd->input_source == INFILE)
 		dup2(cmd->in_file, 0);
@@ -37,8 +38,11 @@ int	handle_streams(t_cmd *cmd, int last_in, int pipes[2])
 
 void	forked_process(t_cmd *cmd, int last_in, int pipes[2])
 {
-	if (handle_streams(cmd, last_in, pipes))
-		exit(g_data.exit_code);
+	char	*path;
+
+	handle_streams(cmd, last_in, pipes);
+	if (!cmd->cmd)
+		exit(0);
 	if (is_builtin(cmd))
 	{
 		exec_builtin(cmd);
@@ -46,42 +50,47 @@ void	forked_process(t_cmd *cmd, int last_in, int pipes[2])
 	}
 	if (ft_strchr(cmd->cmd, '/'))
 	{
+		if (!access(cmd->cmd, F_OK) && cmd->cmd[ft_strlen(cmd->cmd) - 1] == '/')
+			exit(ft_perror("minishell", ft_strjoin(cmd->cmd, ": is a directory"), 1) + 127);
 		if (execve(cmd->cmd, cmd->args, g_data.env))
 		{
-			exit(ft_perror(ft_strjoin("minishell: ", cmd->cmd), NULL, 0) + 128); // exit code = 127
+			if (errno == 2)
+				exit(ft_perror(ft_strjoin("minishell: ", cmd->cmd), NULL, 0) + 128);
+			else
+				exit(ft_perror(ft_strjoin("minishell: ", cmd->cmd), NULL, 0) + 127);
 		}
 	}
 	else
 	{
-		if (execve(check_path(cmd->cmd, g_data.env_lst), cmd->args, g_data.env))
-			exit(ft_perror(ft_strjoin("minishell: ", cmd->cmd), NULL, 0) + 128); // exit code = 127 
-		// need to change the error msg
+		path = check_path(cmd->cmd, g_data.env_lst);
+		if (!path)
+				exit(ft_perror("minishell", ft_strjoin(cmd->cmd, ": command not found"), 1) + 128);
+		if (execve(path, cmd->args, g_data.env))
+			exit(ft_perror(ft_strjoin("minishell: ", path), NULL, 0) + 127);
 	}
-	exit(1);
 }
 
-int	ft_fork(t_cmd *cmd, int *pid)
+int	ft_fork(t_cmd *cmd, int *pid, int last_in)
 {
 	int		pipes[2];
-	int		last_in;
 
-	last_in = 0;
 	while (cmd)
 	{
+		if (pipe(pipes) == -1)
+			return (ft_perror("minishell", NULL, 0));
+		close(pipes[1]);
 		if (!open_files(cmd))
 		{
-			if (pipe(pipes) == -1)
-				return (ft_perror("minishell", NULL, 0));
+			g_data.exit_code = -1;
 			*pid = fork();
 			if (*pid == 0)
 				forked_process(cmd, last_in, pipes);
 			else if (*pid < 0)
 				return (ft_perror("minishell", NULL, 0));
-			close(pipes[1]);
-			if (last_in != 0)
-				close(last_in);
-			last_in = pipes[0];
 		}
+		if (last_in != 0)
+			close(last_in);
+		last_in = pipes[0];
 		cmd = cmd->next;
 	}
 	close(last_in);
@@ -92,15 +101,21 @@ int	ft_execute(t_cmd *cmd)
 {
 	int		pid;
 	int		r_status;
+	int		last_in;
 
+	last_in = 0;
 	if (is_builtin(cmd) && !cmd->next)
 	{
 		run_one_builtin();
 		return (0);
 	}
-	ft_fork(cmd, &pid);
-	waitpid(pid, &r_status, 0);
-	g_data.exit_code = WEXITSTATUS(r_status);
+	if (ft_fork(cmd, &pid, last_in))
+		return (-1);
+	if (g_data.exit_code == -1)
+	{
+		waitpid(pid, &r_status, 0);
+		g_data.exit_code = WEXITSTATUS(r_status);
+	}
 	while (wait(NULL) > -1)
 		;
 	return (0);
