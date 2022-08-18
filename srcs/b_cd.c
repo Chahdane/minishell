@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 19:51:05 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/15 19:09:41 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:14:50 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	update_env_pwd(char *var, int len)
 
 	pwd = NULL;
 	pwd = getcwd(pwd, PATH_MAX);
-	g_data.exit_code = 0;
 	env = g_data.env_lst;
 	while (env)
 	{
@@ -85,6 +84,7 @@ void	cd(t_cmd *cmd)
 	{
 		printf("minishell: cd: %s: No such file or directory\n", args[0]);
 		g_data.exit_code = 1;
+		return ;
 	}
 	update_env_pwd("PWD", 3);
 }
