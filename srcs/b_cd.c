@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 19:51:05 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/18 17:14:50 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:51:40 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,8 @@ void	update_env_pwd(char *var, int len)
 	free(pwd);
 }
 
-void	go_home(void)
+void	go_home(t_env *env)
 {
-	t_env	*env;
-
-	env = g_data.env_lst;
 	if (sv(g_data.env_lst, "HOME") == -1)
 	{
 		printf("minishell: cd: HOME not set\n");
@@ -52,13 +49,31 @@ void	go_home(void)
 			{
 				if (chdir(env->value) != 0)
 				{
-					printf("minishell: cd: %s: No such file or directory\n", env->value);
+					printf("minishell: cd: %s: No such file or directory\n",
+						env->value);
 					g_data.exit_code = 1;
 				}
 				break ;
 			}
 			env = env->next;
 		}
+	}
+}
+
+void	update_oldpwd(char *cwd)
+{
+	t_env	*ptr;
+
+	ptr = g_data.env_lst;
+	while (ptr)
+	{
+		if (!ft_strcmp("OLDPWD", ptr->var))
+		{
+			if (!*ptr->value)
+				replace_val(g_data.env_lst, sv(g_data.env_lst, "OLDPWD") - 1,
+					cwd, 0);
+		}
+		ptr = ptr->next;
 	}
 }
 
@@ -71,15 +86,12 @@ void	cd(t_cmd *cmd)
 	i = 0;
 	cwd = NULL;
 	cwd = getcwd(cwd, PATH_MAX);
-	if (sv(g_data.env_lst, "OLDPWD") == -1)
-		add_node(&g_data.env_lst, "OLDPWD", cwd);
-	else
-		replace_val(g_data.env_lst, sv(g_data.env_lst, "OLDPWD") - 1, cwd, 0);
+	update_oldpwd(cwd);
 	free(cwd);
 	g_data.exit_code = 0;
 	args = cmd->args + 1;
 	if (!*args)
-		go_home();
+		go_home(g_data.env_lst);
 	else if (chdir(args[0]) != 0)
 	{
 		printf("minishell: cd: %s: No such file or directory\n", args[0]);

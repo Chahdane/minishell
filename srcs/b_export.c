@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:26:49 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/17 01:49:43 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:52:39 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,8 @@ void	replace_val(t_env *env, int index, char *new_value, int flag)
 	}
 }
 
-int	check_naming(char *str, char *str2)
+int	check_naming(char *str, char *str2, int i)
 {
-	int	i;
-
-	i = 1;
 	if (!ft_isalpha(str[0]) && str[0] != '_')
 	{
 		printf("minishell: export: `%s", str);
@@ -122,7 +119,7 @@ void	export(t_env *env, char **args)
 	while (args[i])
 	{
 		sp = split_arg(args[i]);
-		if (check_naming(sp[0], sp[1]) == 1)
+		if (check_naming(sp[0], sp[1], 1) == 1)
 		{
 			if (sp[2][0] == '-' && sv(env, sp[0]) > -1 && !co(args[i]))
 				replace_val(env, sv(env, sp[0]) - 1, sp[1], 0);

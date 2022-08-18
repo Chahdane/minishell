@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/18 17:45:09 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:54:40 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ int		get_expansion_len(char *var, int *i);
 // BUILTINS 
 t_env	*clone_list(void);
 void	find_smallest(t_env *env);
-int		check_naming(char *str, char *str2);
 int		sv(t_env *env, char *var);
 char	**split_arg(char *arg);
 void	pwd(void);
