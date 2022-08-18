@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 17:14:50 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/16 16:38:56 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/18 20:10:43 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	write_2_fd(int fd, char *delimiter, int is_expand)
 	char	*line;
 	char	*tmp;
 
+	g_data.loc = HDOC;
 	line = readline("> ");
 	while (line)
 	{

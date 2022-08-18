@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/18 17:54:40 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/18 20:50:08 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <sys/errno.h>
+# include <signal.h>
 
 // enums
 enum e_type
@@ -47,6 +48,13 @@ enum e_input
 	INFILE,
 	HEREDOC,
 	STDIN
+};
+
+enum e_loc
+{
+	PROMPT,
+	HDOC,
+	EXEC
 };
 
 //structures
@@ -88,11 +96,12 @@ typedef struct s_token
 
 typedef struct s_data
 {
-	char	**env;
-	t_env	*env_lst;
-	t_cmd	*cmds;
-	int		exit_code;
-	int		pipe_found;
+	char		**env;
+	t_env		*env_lst;
+	t_cmd		*cmds;
+	int			exit_code;
+	int			pipe_found;
+	enum e_loc	loc;
 }				t_data;
 
 //global variable
@@ -159,9 +168,6 @@ int		ft_execute(t_cmd *cmd);
 int		is_builtin(t_cmd *cmd);
 void	exec_builtin(t_cmd *cmd);
 char	*check_path(char *cmd, t_env *env);
-
-//miscellaneous defines
-# define PROMPT  "MINISHELL$> "
 
 // errors
 # define QUOTES "syntax error: unclosed quotes"

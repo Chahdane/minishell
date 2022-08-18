@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/17 01:42:24 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/18 20:49:58 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	main(int ac, char **av, char **envp)
 	(void) ac;
 	(void) av;
 	init_env_lst(envp);
-	line = readline(PROMPT);
+	line = readline("MINISHELL$> ");
+	g_data.loc = PROMPT;
 	while (line)
 	{
 		ft_add_history(line);
@@ -27,7 +28,8 @@ int	main(int ac, char **av, char **envp)
 			ft_execute(g_data.cmds);
 		free(line);
 		clear_cmds_lst(g_data.cmds);
-		line = readline(PROMPT);
+		g_data.loc = PROMPT;
+		line = readline("MINISHELL$> ");
 	}
 	ft_putendl_fd("exit", 2);
 	return (0);

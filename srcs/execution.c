@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 21:30:51 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/17 22:15:49 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/18 20:05:46 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int	ft_execute(t_cmd *cmd)
 	int		r_status;
 	int		last_in;
 
+	g_data.loc = EXEC;
 	last_in = 0;
 	if (is_builtin(cmd) && !cmd->next)
 	{
