@@ -6,14 +6,14 @@
 #    By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/19 20:16:21 by owahdani          #+#    #+#              #
-#    Updated: 2022/08/17 22:16:44 by owahdani         ###   ########.fr        #
+#    Updated: 2022/08/18 22:46:52 by owahdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 DFLAGS = #-g -fsanitize=address
 CFLAGS = -c -Wall -Wextra -Werror $(IFLAGS) $(DFLAGS)
 
-IFLAGS = -Iincs/ -Ilibft/incs/ -I/Users/owahdani/homebrew/Cellar/readline/8.1.2/include/readline
+IFLAGS = -Iincs/ -Ilibft/incs/ -I/Users/owahdani/homebrew/Cellar/readline/8.1.2/include/
 
 LIBS = -lreadline -L/Users/owahdani/homebrew/Cellar/readline/8.1.2/lib -lft -L$(LIBFT_DIR)
 
@@ -45,7 +45,8 @@ SRC = error_handlers.c \
 	  execution.c \
 	  builtin_ops.c \
 	  file_handlers.c \
-	  accessibility.c
+	  accessibility.c \
+	  signals.c
 
 SRC := $(addprefix $(SRC_DIR),$(SRC))
 OBJ = $(patsubst $(SRC_DIR)%.c,%.o,$(SRC))
@@ -57,6 +58,7 @@ NAME = minishell
 all : $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
+	@stty -echoctl
 	$(CC) $(DFLAGS) $(LIBS) $(OBJ) -o $(NAME)
 
 %.o: $(SRC_DIR)%.c incs/minishell.h
