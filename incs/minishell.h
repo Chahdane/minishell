@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/17 16:10:17 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:45:09 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct s_data
 	t_env	*env_lst;
 	t_cmd	*cmds;
 	int		exit_code;
+	int		pipe_found;
 }				t_data;
 
 //global variable

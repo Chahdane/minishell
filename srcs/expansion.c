@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:43:13 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/10 21:22:40 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:46:27 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,11 @@ int	ft_expand(t_token *token)
 	int		len;
 	char	*new;
 
+	g_data.pipe_found = 0;
 	while (token)
 	{
+		if (token->type == PIPE)
+			g_data.pipe_found = 1;
 		if (token->type != HRDOC && token->type != PIPE)
 		{
 			len = len_after_expand(token->value);

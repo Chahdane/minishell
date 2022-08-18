@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 17:23:07 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/09 16:58:30 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:47:32 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	check_n_expand(char *value, char *new, int *i, int *j)
 	if (value[*i] == '$' && value[*i + 1] == '?')
 	{
 		(*i) += 2;
+		if (g_data.pipe_found)
+			g_data.exit_code = 0;
 		tmp = ft_itoa(g_data.exit_code);
 		while (tmp[k])
 			new[(*j)++] = tmp[k++];
