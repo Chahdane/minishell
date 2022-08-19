@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 19:55:04 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/19 22:19:00 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/20 00:37:25 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ void	sig_quit_handler(int sig)
 	if (g_data.loc == EXEC)
 		printf("^\\Quit: 3\n");
 	(void)sig;
+	g_data.exit_code = sig + 128;
 }
