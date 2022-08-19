@@ -6,16 +6,16 @@
 #    By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/19 20:16:21 by owahdani          #+#    #+#              #
-#    Updated: 2022/08/18 22:46:52 by owahdani         ###   ########.fr        #
+#    Updated: 2022/08/19 15:51:17 by achahdan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 DFLAGS = #-g -fsanitize=address
 CFLAGS = -c -Wall -Wextra -Werror $(IFLAGS) $(DFLAGS)
 
-IFLAGS = -Iincs/ -Ilibft/incs/ -I/Users/owahdani/homebrew/Cellar/readline/8.1.2/include/
+IFLAGS = -Iincs/ -Ilibft/incs/ -I/Users/achahdan/.brew/Cellar/readline/8.1.2/include
 
-LIBS = -lreadline -L/Users/owahdani/homebrew/Cellar/readline/8.1.2/lib -lft -L$(LIBFT_DIR)
+LIBS = -lreadline -L/Users/achahdan/.brew/Cellar/readline/8.1.2/lib -lft -L$(LIBFT_DIR)
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -58,7 +58,7 @@ NAME = minishell
 all : $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	@stty -echoctl
+	#@stty -echoctl
 	$(CC) $(DFLAGS) $(LIBS) $(OBJ) -o $(NAME)
 
 %.o: $(SRC_DIR)%.c incs/minishell.h
