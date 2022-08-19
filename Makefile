@@ -6,7 +6,7 @@
 #    By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/19 20:16:21 by owahdani          #+#    #+#              #
-#    Updated: 2022/08/19 15:51:17 by achahdan         ###   ########.fr        #
+#    Updated: 2022/08/19 17:05:24 by achahdan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ NAME = minishell
 all : $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	#@stty -echoctl
+	@stty -echoctl
 	$(CC) $(DFLAGS) $(LIBS) $(OBJ) -o $(NAME)
 
 %.o: $(SRC_DIR)%.c incs/minishell.h

@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/19 16:56:05 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/19 22:19:44 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int ac, char **av, char **envp)
 	init_env_lst(envp);
 	g_data.loc = PROMPT;
 	signal(SIGINT, sig_int_handler);
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, sig_quit_handler);
 	line = readline("MINISHELL$> ");
 	while (line)
 	{
