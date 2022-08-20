@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/18 22:22:19 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/19 22:19:36 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ char	*check_path(char *cmd, t_env *env);
 
 // SIGNALS
 void	sig_int_handler(int sig);
+void	sig_quit_handler(int sig);
 
 // errors
 # define QUOTES "syntax error: unclosed quotes"

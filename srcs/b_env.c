@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 21:07:40 by achahdan          #+#    #+#             */
-/*   Updated: 2022/08/16 23:20:47 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/20 00:40:24 by achahdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,6 @@ void	fill_env(void)
 	}
 	env[i] = 0;
 	g_data.env = env;
-}
-
-void	print_2d(void)
-{
-	int		i;
-	char	**s2d;
-
-	i = 0;
-	fill_env();
-	s2d = g_data.env;
-	while (s2d[i])
-	{
-		printf("%s\n\n", s2d[i]);
-		i++;
-	}
 }
 
 void	env(void)
