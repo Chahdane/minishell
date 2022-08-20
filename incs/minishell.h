@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/19 22:19:36 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/20 22:47:44 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ typedef struct s_data
 	int			exit_code;
 	int			pipe_found;
 	enum e_loc	loc;
+	int			cmd_count;
+	int			last_cmd_returned;
+	int			sig_caught;
 }				t_data;
 
 //global variable
@@ -168,6 +171,7 @@ int		ft_execute(t_cmd *cmd);
 int		is_builtin(t_cmd *cmd);
 void	exec_builtin(t_cmd *cmd);
 char	*check_path(char *cmd, t_env *env);
+int		cmd_lst_len(t_cmd *cmds);
 
 // SIGNALS
 void	sig_int_handler(int sig);

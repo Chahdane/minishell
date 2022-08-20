@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 22:31:10 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/14 20:51:07 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/20 21:58:11 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,17 @@ void	ft_add_history(char *line)
 {
 	if (*line)
 		add_history(line);
+}
+
+int	cmd_lst_len(t_cmd *cmds)
+{
+	int	i;
+
+	i = 0;
+	while (cmds)
+	{
+		i++;
+		cmds = cmds->next;
+	}
+	return (i);
 }

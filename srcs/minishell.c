@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/19 22:19:44 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/20 23:19:54 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int ac, char **av, char **envp)
 	line = readline("MINISHELL$> ");
 	while (line)
 	{
+		g_data.sig_caught = 0;
 		ft_add_history(line);
 		if (!parse_line(line) && g_data.cmds)
 			ft_execute(g_data.cmds);

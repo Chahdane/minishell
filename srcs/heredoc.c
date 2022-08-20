@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 17:14:50 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/18 20:10:43 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/20 23:47:48 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,11 @@ int	write_2_fd(int fd, char *delimiter, int is_expand)
 {
 	char	*line;
 	char	*tmp;
+	int		std_in;
 
 	g_data.loc = HDOC;
 	line = readline("> ");
+	std_in = dup(0);
 	while (line)
 	{
 		if (!ft_strcmp(delimiter, line))
@@ -71,6 +73,10 @@ int	write_2_fd(int fd, char *delimiter, int is_expand)
 		free(line);
 		line = readline("> ");
 	}
+	dup2(std_in, 0);
+	close(std_in);
+	if (g_data.sig_caught)
+		return (-2);
 	return (0);
 }
 
@@ -78,6 +84,7 @@ int	write_heredoc_2_file(t_cmd *cmd)
 {
 	t_name	*heredoc_lst;
 	int		is_expand;
+	int		ret;
 
 	heredoc_lst = cmd->heredoc_lst;
 	while (heredoc_lst)
@@ -92,8 +99,9 @@ int	write_heredoc_2_file(t_cmd *cmd)
 				O_CREAT | O_RDWR | O_TRUNC | O_APPEND, 0644);
 		if (cmd->heredoc == -1)
 			return (-1);
-		if (write_2_fd(cmd->heredoc, heredoc_lst->name, is_expand))
-			return (-1);
+		ret = write_2_fd(cmd->heredoc, heredoc_lst->name, is_expand);
+		if (ret)
+			return (ret);
 		heredoc_lst = heredoc_lst->next;
 	}
 	close(cmd->heredoc);
@@ -108,6 +116,7 @@ int	read_heredocs(void)
 	t_cmd	*tmp;
 	int		i;
 	char	*index;
+	int		ret;
 
 	tmp = g_data.cmds;
 	i = 0;
@@ -123,10 +132,14 @@ int	read_heredocs(void)
 				return (ft_perror("minishell", NULL, 0));
 			free(index);
 			unlink(tmp->heredoc_path);
-			if (write_heredoc_2_file(tmp))
+			ret = write_heredoc_2_file(tmp);
+			if (ret == -1)
 				return (ft_perror("minishell", NULL, 0));
+			else if (ret == -2)
+				return (-1);
 		}
 		tmp = tmp->next;
 	}
+	g_data.loc = EXEC;
 	return (0);
 }

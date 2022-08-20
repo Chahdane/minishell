@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 21:30:51 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/19 22:04:39 by achahdan         ###   ########.fr       */
+/*   Updated: 2022/08/20 22:40:25 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	ft_fork(t_cmd *cmd, int *pid, int last_in)
 		if (last_in != 0)
 			close(last_in);
 		last_in = pipes[0];
+		g_data.cmd_count++;
 		cmd = cmd->next;
 	}
 	close(last_in);
@@ -103,7 +104,10 @@ int	ft_execute(t_cmd *cmd)
 	int		r_status;
 	int		last_in;
 
+	g_data.sig_caught = 0;
 	g_data.loc = EXEC;
+	g_data.cmd_count = 0;
+	g_data.last_cmd_returned = 0;
 	last_in = 0;
 	if (is_builtin(cmd) && !cmd->next)
 	{
@@ -115,7 +119,9 @@ int	ft_execute(t_cmd *cmd)
 	if (g_data.exit_code == -1)
 	{
 		waitpid(pid, &r_status, 0);
-		g_data.exit_code = WEXITSTATUS(r_status);
+		g_data.last_cmd_returned = 1;
+		if (!g_data.sig_caught)
+			g_data.exit_code = WEXITSTATUS(r_status);
 	}
 	while (wait(NULL) > -1)
 		;
