@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 22:31:10 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/20 21:58:11 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/21 17:14:01 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,6 @@ void	free_2d_array(char **tab)
 	free(tab);
 }
 
-void	ft_add_history(char *line)
-{
-	if (*line)
-		add_history(line);
-}
-
 int	cmd_lst_len(t_cmd *cmds)
 {
 	int	i;
@@ -54,4 +48,22 @@ int	cmd_lst_len(t_cmd *cmds)
 		cmds = cmds->next;
 	}
 	return (i);
+}
+
+char	*ft_readline(char *prompt)
+{
+	char	*line;
+
+	ft_putstr_fd(prompt, 1);
+	line = get_next_line(0);
+	if (!line)
+		return (NULL);
+	line[ft_strlen(line) - 1] = 0;
+	return (line);
+}
+
+int	ft_free(void *ptr, int ret)
+{
+	free(ptr);
+	return (ret);
 }

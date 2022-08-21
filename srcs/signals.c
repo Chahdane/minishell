@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 19:55:04 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/20 23:37:41 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:29:17 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_redisplay(void)
 
 void	sig_int_handler(int sig)
 {
-
 	if (g_data.loc == PROMPT)
 		ft_redisplay();
 	else if (g_data.loc == EXEC)
@@ -40,8 +39,9 @@ void	sig_int_handler(int sig)
 	else
 	{
 		g_data.sig_caught = 1;
+		ft_putstr_fd("\n", 1);
 		close(0);
-		ft_redisplay();
+		g_data.exit_code = 1;
 	}
 }
 
@@ -49,7 +49,7 @@ void	sig_quit_handler(int sig)
 {
 	(void) sig;
 	rl_on_new_line();
-	if (g_data.loc == PROMPT || g_data.loc == HDOC)
+	if (g_data.loc == PROMPT)
 		rl_redisplay();
 	else if (g_data.loc == EXEC)
 	{

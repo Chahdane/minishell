@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 21:30:51 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/20 22:40:25 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:26:36 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,22 @@ int	handle_streams(t_cmd *cmd, int last_in, int pipes[2])
 	return (0);
 }
 
+void	run_path_cmd(t_cmd *cmd)
+{
+	if (!access(cmd->cmd, F_OK) && cmd->cmd[ft_strlen(cmd->cmd) - 1] == '/')
+		exit(ft_perror("minishell",
+				ft_strjoin(cmd->cmd, ": is a directory"), 1) + 127);
+	if (execve(cmd->cmd, cmd->args, g_data.env))
+	{
+		if (errno == 2)
+			exit(ft_perror(ft_strjoin("minishell: ",
+						cmd->cmd), NULL, 0) + 128);
+		else
+			exit(ft_perror(ft_strjoin("minishell: ",
+						cmd->cmd), NULL, 0) + 127);
+	}
+}
+
 void	forked_process(t_cmd *cmd, int last_in, int pipes[2])
 {
 	char	*path;
@@ -49,22 +65,13 @@ void	forked_process(t_cmd *cmd, int last_in, int pipes[2])
 		exit(g_data.exit_code);
 	}
 	if (ft_strchr(cmd->cmd, '/'))
-	{
-		if (!access(cmd->cmd, F_OK) && cmd->cmd[ft_strlen(cmd->cmd) - 1] == '/')
-			exit(ft_perror("minishell", ft_strjoin(cmd->cmd, ": is a directory"), 1) + 127);
-		if (execve(cmd->cmd, cmd->args, g_data.env))
-		{
-			if (errno == 2)
-				exit(ft_perror(ft_strjoin("minishell: ", cmd->cmd), NULL, 0) + 128);
-			else
-				exit(ft_perror(ft_strjoin("minishell: ", cmd->cmd), NULL, 0) + 127);
-		}
-	}
+		run_path_cmd(cmd);
 	else
 	{
 		path = check_path(cmd->cmd, g_data.env_lst);
 		if (!path)
-				exit(ft_perror("minishell", ft_strjoin(cmd->cmd, ": command not found"), 1) + 128);
+			exit(ft_perror("minishell",
+					ft_strjoin(cmd->cmd, ": command not found"), 1) + 128);
 		if (execve(path, cmd->args, g_data.env))
 			exit(ft_perror(ft_strjoin("minishell: ", path), NULL, 0) + 127);
 	}
@@ -110,10 +117,7 @@ int	ft_execute(t_cmd *cmd)
 	g_data.last_cmd_returned = 0;
 	last_in = 0;
 	if (is_builtin(cmd) && !cmd->next)
-	{
-		run_one_builtin();
-		return (0);
-	}
+		return (run_one_builtin());
 	if (ft_fork(cmd, &pid, last_in))
 		return (-1);
 	if (g_data.exit_code == -1)

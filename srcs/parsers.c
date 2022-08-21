@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:46:34 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/16 16:16:44 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:15:44 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,113 +117,6 @@ int	transform_tokens(t_token *tokens)
 	return (0);
 }
 
-void	print_cmds(void)
-{
-	t_cmd	*cmd;
-	t_name	*tmp;
-	char	*tmp_cmd = NULL;
-	int		i;
-
-	cmd = g_data.cmds;
-	printf("\n");
-	while (cmd)
-	{
-		if (cmd->args)
-			tmp_cmd = (cmd->args)[0];
-		printf("\e[0;31mCMD = (%s)\e[0;37m\n", tmp_cmd);
-		/*tmp = cmd->infiles;
-		printf("\e[0;32mINFILES = \e[0;37m");
-		while (tmp)
-		{
-			printf("(%s)", tmp->name);
-			tmp = tmp->next;
-			if (tmp)
-				printf(", ");
-		}
-		printf("\n");
-		tmp = cmd->outfiles;
-		printf("\e[0;33mOUTFILES = \e[0;37m");
-		while (tmp)
-		{
-			printf("(%s) ==> ", tmp->name);
-			printf("%s", tmp->out_mode == NEW ? "new" : "append");
-			tmp = tmp->next;
-			if (tmp)
-				printf(", ");
-		}
-		printf("\n");*/
-		tmp = cmd->heredoc_lst;
-		printf("\e[0;34mHEREDOCS = \e[0;37m");
-		while (tmp)
-		{
-			printf("(%s)", tmp->name);
-			tmp = tmp->next;
-			if (tmp)
-				printf(", ");
-		}
-		printf("\n");
-		if (cmd->input_source == STDIN)
-			printf("\e[0;36mINPUT_SOURCE = standard input\e[0;37m\n");
-		else if (cmd->input_source == HEREDOC)
-			printf("\e[0;36mINPUT_SOURCE = heredoc\e[0;37m\n");
-		else if (cmd->input_source == INFILE)
-			printf("\e[0;36mINPUT_SOURCE = infile\e[0;37m\n");
-		tmp = cmd->args_lst;
-		printf("\e[1;32mARGS_LIST = \e[0;37m");
-		while (tmp)
-		{
-			printf("(%s)", tmp->name);
-			tmp = tmp->next;
-			if (tmp)
-				printf(" -> ");
-		}
-		printf("\n");
-		printf("\e[1;31mARGS_ARRAY = \e[0;37m");
-		i = 0;
-		while (cmd->args && (cmd->args)[i])
-		{
-			printf("[%i] == (%s)", i, (cmd->args)[i]);
-			i++;
-			if ((cmd->args)[i])
-				printf(", ");
-		}
-		cmd = cmd->next;
-		if (cmd)
-			printf("\n\n     =======================      \n\n");
-		else
-			printf("\n");
-	}
-}
-
-void	print_heredocs(void)
-{
-	t_cmd	*tmp;
-	char	*line;
-	int		i;
-
-	tmp = g_data.cmds;
-	i = 0;
-	printf("\n");
-	while (tmp)
-	{
-		if (tmp->heredoc == -1)
-		{
-			tmp = tmp->next;
-			continue ;
-		}
-		line = get_next_line(tmp->heredoc);
-		printf("heredoc number %i\n", i++);
-		while (line)
-		{
-			printf("%s", line);
-			free(line);
-			line = get_next_line(tmp->heredoc);
-		}
-		printf("\n\n======================\n\n");
-		tmp = tmp->next;
-	}
-}
-
 int	parse_line(char *line)
 {
 	t_token	*tokens;
@@ -237,8 +130,6 @@ int	parse_line(char *line)
 		return (clear_token_lst(tokens) == NULL);
 	if (read_heredocs())
 		return (clear_token_lst(tokens) == NULL);
-	//print_cmds();
-	//print_heredocs();
 	clear_token_lst(tokens);
 	return (0);
 }

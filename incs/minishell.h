@@ -6,7 +6,7 @@
 /*   By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 20:18:30 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/20 22:47:44 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/21 17:14:33 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,13 +134,14 @@ int		ft_strcmp(char *s1, char *s2);
 void	check_n_expand(char *value, char *new, int *i, int *j);
 int		ft_expand(t_token *token);
 void	remove_quotes(char *value);
-void	ft_add_history(char *line);
 int		add_name(t_name **name_lst, t_token *token);
 void	clear_names_lst(t_name *name_lst);
 int		clear_cmds_lst(t_cmd *cmds);
 int		args_lst_to_arr(t_cmd **cmd);
 int		read_heredocs(void);
 int		get_expansion_len(char *var, int *i);
+char	*ft_readline(char *prompt);
+int		ft_free(void *ptr, int ret);
 
 // BUILTINS 
 t_env	*clone_list(void);
@@ -166,7 +167,7 @@ int		co(char *str);
 
 // EXECUTION
 int		open_files(t_cmd *cmd);
-void	run_one_builtin(void);
+int		run_one_builtin(void);
 int		ft_execute(t_cmd *cmd);
 int		is_builtin(t_cmd *cmd);
 void	exec_builtin(t_cmd *cmd);

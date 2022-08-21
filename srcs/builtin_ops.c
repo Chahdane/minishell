@@ -6,7 +6,7 @@
 /*   By: owahdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 23:13:47 by owahdani          #+#    #+#             */
-/*   Updated: 2022/08/16 00:15:24 by owahdani         ###   ########.fr       */
+/*   Updated: 2022/08/21 16:21:52 by owahdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	exec_builtin(t_cmd *cmd)
 		ft_exit(cmd);
 }
 
-void	run_one_builtin(void)
+int	run_one_builtin(void)
 {
 	int	stdout_fd;
 
@@ -65,16 +65,17 @@ void	run_one_builtin(void)
 	if (stdout_fd < 0)
 	{
 		ft_perror("minishell", NULL, 0);
-		return ;
+		return (-1);
 	}
 	if (open_files(g_data.cmds))
-		return ;
+		return (-1);
 	if (g_data.cmds->out_file > -1)
 		if (dup2(g_data.cmds->out_file, 1) < 0)
-			return ;
+			return (-1);
 	if (ft_strcmp("exit", g_data.cmds->cmd) == 0)
 		ft_putendl_fd("exit", 2);
 	exec_builtin(g_data.cmds);
 	dup2(stdout_fd, 1);
 	close(stdout_fd);
+	return (0);
 }
