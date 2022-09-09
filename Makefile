@@ -6,15 +6,15 @@
 #    By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/19 20:16:21 by owahdani          #+#    #+#              #
-#    Updated: 2022/09/09 14:18:36 by owahdani         ###   ########.fr        #
+#    Updated: 2022/09/09 15:19:08 by owahdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -c -Wall -Wextra -Werror $(IFLAGS)
 
-IFLAGS = -Iincs/ -Ilibft/incs/ -Ireadline/8.1.2/include
+IFLAGS = -Iincs/ -Ilibft/incs/ -Ireadline/include
 
-LIBS = -lreadline -Lreadline/8.1.2/lib -lft -L$(LIBFT_DIR)
+LIBS = -lreadline -Lreadline/lib -lft -L$(LIBFT_DIR)
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -59,6 +59,7 @@ all : $(NAME)
 $(NAME): $(OBJ) $(LIBFT)
 	@stty -echoctl
 	$(CC) $(LIBS) $(OBJ) -o $(NAME)
+	@install_name_tool -change /Users/owahdani/homebrew/opt/readline/lib/libreadline.8.dylib readline/lib/libreadline.8.dylib minishell
 
 %.o: $(SRC_DIR)%.c incs/minishell.h
 		$(CC) $(CFLAGS) $< -o $@
