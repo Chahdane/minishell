@@ -14,4 +14,4 @@ This is a 42 project that aims to create a minimized version of Bash. This shell
  
  After you clone the repo, run the following in your terminal:
 
-    cd minishell && ./install.sh && ./minishell
+    cd minishell && make && ./minishell
