@@ -1,11 +1,11 @@
 ﻿#  Minishell $>
 
-This is a 42 project that aims to create a minimized version of Bash. This shell integrates a set of built-ins like echo and export can run any number of commands in a pipeline. 
+This is a 42 project that aims to create a minimized version of Bash. This shell integrates a set of built-ins like echo and export and also can run any number of commands in a pipeline.
 
 # Features
 
  - Expansion of environment variables and return statuses of commands
- - The Handling the interrupt and quit signals is quite similar to Bash
+ - The Handling of the interrupt and quit signals is quite similar to Bash
  - Works with heredocs anywhere in the pipeline
  - Redirection of output to files in overwrite and append modes
  - Redirection of input to commands from files
