@@ -6,7 +6,7 @@
 #    By: achahdan <achahdan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/19 20:16:21 by owahdani          #+#    #+#              #
-#    Updated: 2022/09/09 15:19:08 by owahdani         ###   ########.fr        #
+#    Updated: 2022/09/10 16:22:07 by owahdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ $(NAME): $(OBJ) $(LIBFT)
 	@stty -echoctl
 	$(CC) $(LIBS) $(OBJ) -o $(NAME)
 	@install_name_tool -change /Users/owahdani/homebrew/opt/readline/lib/libreadline.8.dylib readline/lib/libreadline.8.dylib minishell
+	@make clean
 
 %.o: $(SRC_DIR)%.c incs/minishell.h
 		$(CC) $(CFLAGS) $< -o $@
