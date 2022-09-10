@@ -12,6 +12,6 @@ This is a 42 project that aims to create a minimized version of Bash. This shell
  
  # Usage
  
- In your MacOs machine clone the repo, run the following in your terminal:
+ In your MacOs machine, run the following in your terminal:
 
-    cd minishell && make && ./minishell
+    git clone git@github.com:otmanewahdani/minishell.git && cd minishell && make && ./minishell
